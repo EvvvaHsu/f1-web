@@ -1,19 +1,29 @@
-<div class="mb-4 text-center">
-  <h1 class="h3 font-weight-normal mb-3">Sign In</h1>
-</div>
-<form class="form-signin" action="/signin" method="POST">
-  <div class="form-row mb-3">
-    <label class="form-label" for="email">Email</label>
-    <input class="form-control" id="email" type="text" name="email" class="form-control" placeholder="Email" required
-      autofocus>
+<div class="border">
+  <div class="mb-4 text-center">
+    <h1 class="h3 font-weight-normal mb-3">LOG IN</h1>
   </div>
-  <div class="form-row mb-3">
-    <label class="form-label" for="password">Password</label>
-    <input class="form-control" id="password" type="password" name="password" class="form-control"
-      placeholder="Password" required>
+  <div class="d-flex justify-content-between mb-5">
+    <span>Not a member yet?</span>
+    <button class="btn btn-light"><a href="/signup">Create Account</a></button>
   </div>
-  <button class="btn btn-primary btn-block" type="submit">Submit</button>
-</form>
-<div class="mb-4 text-center">
-  <p><a href="/signup">Sign Up</a></p>
+
+  <form class="form-signin" action="/signin" method="POST">
+    <div class="form-row mb-5">
+      <label class="form-label" for="email">Email</label>
+      <input class="form-control" id="email" type="text" name="email" class="form-control" placeholder="Email" required
+        autofocus>
+    </div>
+    <div class="form-row mb-5">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-control" id="password" type="password" name="password" class="form-control"
+        placeholder="Password" required>
+    </div>
+  </form>
+
+  <div class="mb-4 text-center">
+    <button class="btn btn-light" type="submit">Log In</button>
+  </div>
+  <div class="mb-4 text-center">
+    <button class="btn btn-light"><a href="#">Forgot Password</a></button>
+  </div>
 </div>
