@@ -9,18 +9,19 @@
 
 .btn {
     border: 1px solid rgb(7, 185, 126);
-    color: rgb(7, 185, 126);
+    color: rgb(6, 131, 89);
 }
 
 .btn:hover{
-    color: rgb(7, 185, 126);
+    color: white;
+    background-color: rgb(7, 185, 126);
 }
 
 a {
     text-decoration: none;
-    color: rgb(7, 185, 126);
+    color: rgb(6, 131, 89);
 }
 
 a:hover{
-    color: rgb(7, 185, 126);
+    color: white;
 }

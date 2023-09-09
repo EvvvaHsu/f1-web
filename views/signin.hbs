@@ -10,20 +10,23 @@
   <form class="form-signin" action="/signin" method="POST">
     <div class="form-row mb-5">
       <label class="form-label" for="email">Email</label>
-      <input class="form-control" id="email" type="text" name="email" class="form-control" placeholder="Email" required
-        autofocus>
+      <input class="form-control" id="email" type="email" name="email" class="form-control" placeholder="Email"
+        maxlength="40" required autofocus>
     </div>
     <div class="form-row mb-5">
       <label class="form-label" for="password">Password</label>
       <input class="form-control" id="password" type="password" name="password" class="form-control"
-        placeholder="Password" required>
+        placeholder="Password" maxlength="30" required>
     </div>
+
+    <div class="mb-4 text-center">
+      <button class="btn btn-light" type="submit">Log In</button>
+    </div>
+
+    <div class="mb-4 text-center">
+      <button class="btn btn-light"><a href="#">Forgot Password</a></button>
+    </div>
+    
   </form>
 
-  <div class="mb-4 text-center">
-    <button class="btn btn-light" type="submit">Log In</button>
-  </div>
-  <div class="mb-4 text-center">
-    <button class="btn btn-light"><a href="#">Forgot Password</a></button>
-  </div>
 </div>

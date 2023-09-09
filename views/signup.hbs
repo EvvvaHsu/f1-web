@@ -1,26 +1,53 @@
-<div class="mb-4 text-center">
-  <h1 class="h3 font-weight-normal mb-3">Register</h1>
-</div>
-<form class="form-signup" action="/signup" method="POST" style="width: 100%;">
-  <div class="form-row mb-3">
-    <label class="form-label" for="name">Name</label>
-    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required autofocus>
+<div class="border">
+  <div class="mb-4 text-center">
+    <h1 class="h3 font-weight-normal mb-3">Register</h1>
   </div>
-  <div class="form-row mb-3">
-    <label class="form-label" for="email">Email</label>
-    <input type="text" id="email" name="email" class="form-control" placeholder="Email" required>
+
+  <div class="d-flex justify-content-between mb-5">
+    <span>Already a member?</span>
+    <button class="btn btn-light"><a href="/signin">Log In</a></button>
   </div>
-  <div class="form-row mb-3">
-    <label class="form-label" for="password">Password</label>
-    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-  </div>
-  <div class="form-row mb-3">
-    <label class="form-label" for="passwordCheck">Password Check</label>
-    <input type="password" id="passwordCheck" name="passwordCheck" class="form-control" placeholder="Password Check"
-      required>
-  </div>
-  <button class="btn btn-primary btn-block" type="submit">Submit</button>
-</form>
-<div class="mb-4 text-center">
-  <p><a href="/signin">Sign In</a></p>
+
+  <form class="form-signup" action="/signup" method="POST" style="width: 100%;">
+
+    <div class="form-row mb-5 d-flex gap-1 justify-content-between">
+      <div class="col-5">
+        <label class="form-label" for="first-name">First Name</label>
+        <input type="text" id="first-name" name="first-name" class="form-control" placeholder="First Name" maxlength="30" required
+          autofocus>
+      </div>
+      <div class="col-5">
+        <label class="form-label" for="last-name">Last Name</label>
+        <input type="text" id="last-name" name="last-name" class="form-control" placeholder="Last Name" maxlength="30" required
+          autofocus>
+      </div>
+    </div>
+
+    <div class="form-row mb-5">
+      <label class="form-label" for="email">Email</label>
+      <input type="email" id="email" name="email" class="form-control" placeholder="Email" maxlength="40" required>
+    </div>
+
+    <div class="form-row mb-5">
+      <label class="form-label" for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password" maxlength="30" required>
+    </div>
+
+    <div class="form-row mb-5">
+      <label class="form-label" for="passwordCheck">Password Check</label>
+      <input type="password" id="passwordCheck" name="passwordCheck" class="form-control" maxlength="30" placeholder="Password Check"
+        required>
+    </div>
+
+    <div class="mb-4 text-center">
+      <input type="checkbox" id="agree-terms" name="agree-terms" required />
+      <label for="agree-terms">By signing up, you agree to our Terms of Use & Privacy Policy</label>
+    </div>
+
+    <div class="mb-4 text-center">
+      <button class="btn btn-light" type="submit">Create an Account</button>
+    </div>
+
+  </form>
+
 </div>
