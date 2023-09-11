@@ -1,9 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const userController = require('../controllers/user-controller')
 
-router.get('/signup', (req, res) => res.render('signup'))
-router.get('/signin', (req, res) => res.render('signin'))
-router.get('/forgotpassword', (req, res) => res.render('forgotpassword'))
+router.get('/signup', userController.signUpPage)
+router.post('/signup', userController.signUp)
+
+router.get('/signin', userController.signInPage)
+router.post('/signin', userController.signIn)
+
+router.get('/forgotpassword', userController.forgotpasswordPage)
 
 router.get('/', (req, res) => res.render('homepage'))
 
