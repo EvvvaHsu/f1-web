@@ -1,30 +1,32 @@
 const userServices = require('../services/user-services')
 
 const userController = {
-  signUpPage: (req, res) => {
-    res.render('signup')
+  signUpPage: async (req, res) => {
+    await res.render('signup')
   },
-  signUp: (req, res, next) => {
-    userServices.signUp(req, (err, data) => {
-      if (err) return next(err)
-
+  signUp: async (req, res, next) => {
+    try {
+      await userServices.signUp(req)
       req.flash('success_messages', 'Sign up successfully!')
       res.redirect('/signin')
-    })
+    } catch (err) {
+      return next(err)
+    }
   },
-  signInPage: (req, res) => {
-    res.render('signin')
+  signInPage: async (req, res) => {
+    await res.render('signin')
   },
-  signIn: (req, res, next) => {
-    userServices.signIn(req, (err, data) => {
-      if (err) return next(err)
-
+  signIn: async (req, res, next) => {
+    try {
+      await userServices.signIn(req)
       req.flash('success_messages', 'Sign in successfully!')
       res.redirect('/')
-    })
+    } catch (err) {
+      return next(err)
+    }
   },
-  forgotpasswordPage: (req, res) => {
-    res.render('forgotpassword')
+  forgotpasswordPage: async (req, res) => {
+    await res.render('forgotpassword')
   }
 }
 
