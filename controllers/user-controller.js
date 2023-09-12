@@ -27,6 +27,9 @@ const userController = {
   },
   forgotpasswordPage: async (req, res) => {
     await res.render('forgotpassword')
+  },
+  cartPage: async (req, res) => {
+    await res.render('cart')
   }
 }
 

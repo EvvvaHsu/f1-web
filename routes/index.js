@@ -10,6 +10,8 @@ router.post('/signin', userController.signIn)
 
 router.get('/forgotpassword', userController.forgotpasswordPage)
 
+router.get('/cart', userController.cartPage)
+
 router.get('/', (req, res) => res.render('homepage'))
 
 module.exports = router

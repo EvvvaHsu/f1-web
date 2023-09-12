@@ -75,3 +75,15 @@ a:hover {
     font-size: 13px;
     color: white;
 }
+
+.cart {
+    font-size: 18px;
+    color: white;
+}
+
+.cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 170px auto;
+}
