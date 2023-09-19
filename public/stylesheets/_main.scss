@@ -1,0 +1,192 @@
+// * {
+//   outline: 1px solid black;
+// }
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.border {
+  border: 1px solid grey;
+  padding: 50px;
+}
+
+.btn {
+  border: 1px solid rgb(7, 185, 126);
+  color: rgb(6, 131, 89);
+
+  &:hover {
+    color: white;
+    background-color: rgb(7, 185, 126);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: rgb(6, 131, 89);
+
+  &:hover {
+    color: white;
+  }
+}
+
+// header
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  height: 2.75rem;
+  overflow-y: hidden;
+
+  &.nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.link-body-emphasis {
+  color: white;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: black;
+  }
+}
+
+.divider-vertical {
+  height: 28px;
+  width: 1px;
+  margin: 8px 5px 5px;
+  overflow: hidden;
+  background-color: #DDD;
+  border-right: 2px solid #FFF;
+}
+
+//footer
+
+.footer {
+  background-color: rgb(198, 205, 202);
+}
+
+.footer-text {
+  font-size: 18px;
+}
+
+.copyright {
+  font-size: 13px;
+  color: white;
+}
+
+.cart {
+  font-size: 18px;
+  color: white;
+}
+
+.cart-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 170px auto;
+}
+
+//homepage
+
+.sec-category {
+  margin: 50px auto;
+  font-size: 45px;
+  display: flex;
+  justify-content: center;
+}
+
+.mercedes-logo {
+  width: 80px;
+}
+
+.haas-logo {
+  width: 100px;
+}
+
+.redbull-logo {
+  width: 120px;
+}
+
+.alpine-logo {
+  width: 80px;
+}
+
+.mclaren-logo {
+  width: 80px;
+}
+
+.ferrari-logo {
+  width: 70px;
+}
+
+.alfaromeo-logo {
+  width: 95px;
+}
+
+.alphatauri-logo {
+  width: 110px;
+}
+
+.williams-logo {
+  width: 100px;
+}
+
+.astonmartin-logo {
+  width: 100px;
+}
+
+.kevin-img {
+  width: 100px;
+}
+
+.george-img {
+  width: 100px;
+}
+
+.charlie-img {
+  width: 100px;
+}
+
+.lando-img {
+  width: 100px;
+}
+
+.carlos-img {
+  width: 100px;
+}
+
+.alex-img {
+  width: 100px;
+}
+
+.men-img {
+  width: 100px;
+  margin-bottom: auto;
+}
+
+.women-img {
+  width: 100px;
+  margin-bottom: auto;
+}
+
+.kids-img {
+  width: 120px;
+  margin-bottom: auto;
+}
+
+.others-img {
+  width: 100px;
+}
+
+.img-align {
+  flex-grow: 1;
+}
