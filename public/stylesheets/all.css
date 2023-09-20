@@ -197,12 +197,10 @@ a:hover {
 .footer {
   background-color: rgb(198, 205, 202);
 }
-
-.footer-text {
+.footer .footer-text {
   font-size: 18px;
 }
-
-.copyright {
+.footer .copyright {
   font-size: 13px;
   color: white;
 }
@@ -220,95 +218,170 @@ a:hover {
 }
 
 .sec-category {
-  margin: 50px auto;
+  margin: 100px auto;
   font-size: 45px;
   display: flex;
   justify-content: center;
 }
 
+.latest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+}
+.latest .latest-card {
+  width: 18rem;
+  border: solid 1px;
+  border-radius: 10px;
+  border-color: rgb(208, 199, 199);
+  overflow: hidden;
+}
+.latest .latest-card .img-frame {
+  overflow: hidden;
+  flex-grow: 1;
+}
+.latest .latest-card .img-frame .imgshow {
+  width: 100%;
+  transition: 400ms;
+}
+.latest .latest-card .img-frame .imgshow:hover {
+  transform: scale(1.2);
+  transition: 400ms;
+}
+.latest .latest-card .latest-card-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.latest .latest-card .latest-card-body .latest-card-title {
+  font-size: 18px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  line-height: 1.5;
+}
+.latest .latest-card .latest-card-body .btn.latest-card-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
 .mercedes-logo {
   width: 80px;
+  transition: 400ms;
+}
+.mercedes-logo:hover {
+  transform: scale(1.2);
 }
 
 .haas-logo {
   width: 100px;
+  transition: 400ms;
+}
+.haas-logo:hover {
+  transform: scale(1.2);
 }
 
 .redbull-logo {
   width: 120px;
+  transition: 400ms;
+}
+.redbull-logo:hover {
+  transform: scale(1.2);
 }
 
 .alpine-logo {
   width: 80px;
+  transition: 400ms;
+}
+.alpine-logo:hover {
+  transform: scale(1.2);
 }
 
 .mclaren-logo {
   width: 80px;
+  transition: 400ms;
+}
+.mclaren-logo:hover {
+  transform: scale(1.2);
 }
 
 .ferrari-logo {
   width: 70px;
+  transition: 400ms;
+}
+.ferrari-logo:hover {
+  transform: scale(1.2);
 }
 
 .alfaromeo-logo {
   width: 95px;
+  transition: 400ms;
+}
+.alfaromeo-logo:hover {
+  transform: scale(1.2);
 }
 
 .alphatauri-logo {
   width: 110px;
+  transition: 400ms;
+}
+.alphatauri-logo:hover {
+  transform: scale(1.2);
 }
 
 .williams-logo {
   width: 100px;
+  transition: 400ms;
+}
+.williams-logo:hover {
+  transform: scale(1.2);
 }
 
 .astonmartin-logo {
   width: 100px;
+  transition: 400ms;
+}
+.astonmartin-logo:hover {
+  transform: scale(1.2);
 }
 
-.kevin-img {
+.driver-img {
   width: 100px;
+  transition: 400ms;
+}
+.driver-img:hover {
+  transform: scale(1.2);
 }
 
-.george-img {
+.category-img {
   width: 100px;
+  transition: 400ms;
 }
-
-.charlie-img {
-  width: 100px;
-}
-
-.lando-img {
-  width: 100px;
-}
-
-.carlos-img {
-  width: 100px;
-}
-
-.alex-img {
-  width: 100px;
-}
-
-.men-img {
-  width: 100px;
-  margin-bottom: auto;
-}
-
-.women-img {
-  width: 100px;
-  margin-bottom: auto;
+.category-img:hover {
+  transform: scale(1.2);
 }
 
 .kids-img {
   width: 120px;
-  margin-bottom: auto;
+  transition: 400ms;
 }
-
-.others-img {
-  width: 100px;
+.kids-img:hover {
+  transform: scale(1.2);
 }
 
 .img-align {
   flex-grow: 1;
+}
+.img-align .category-img {
+  width: 100px;
+  transition: 400ms;
+}
+.img-align .category-img:hover {
+  transform: scale(1.2);
 }/*# sourceMappingURL=all.css.map */
