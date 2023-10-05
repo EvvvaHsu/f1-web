@@ -24,6 +24,7 @@ body {
 a {
   text-decoration: none;
   color: rgb(6, 131, 89);
+  cursor: pointer;
 
   &:hover {
     color: white;
@@ -31,22 +32,19 @@ a {
 }
 
 // header
-.nav-scroller {
+.nav-item.dropdown {
   position: relative;
-  z-index: 2;
-  height: 2.75rem;
-  overflow-y: hidden;
+}
 
-  &.nav {
-    display: flex;
-    flex-wrap: nowrap;
-    padding-bottom: 1rem;
-    margin-top: -1px;
-    overflow-x: auto;
-    text-align: center;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-  }
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  position: absolute;
+  top: 100%;  /* 使其出現在父元素的下方 */
+  left: 0;    /* 與父元素左側對齊 */
+}
+
+.nav-item.dropdown .dropdown-toggle::after {
+  display: none;
 }
 
 .link-body-emphasis {
