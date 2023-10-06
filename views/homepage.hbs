@@ -80,57 +80,18 @@
     <h3 class="sec-category">Latest</h3>
     <ul class="latest">
 
+      {{#each latestProducts}}
       <li class="latest-card col-3" style="width: 18rem;">
         <div class="img-frame">
-          <img class="imgshow"
-            src="https://www.toysrus.com.tw/dw/image/v2/BDGJ_PRD/on/demandware.static/-/Sites-master-catalog-toysrus/default/dw5a6b21ee/1/9/6/8/1968854c94fc8bd100fbfda3b400f2f5ec6e3b5d_31151_i1.jpg?sw=500&sh=500&q=75"
-            class="card-img-top" alt="LEGO Technic McLaren Formula 1 Race Car 42141">
+          <img class="imgshow" src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
         </div>
 
         <div class="latest-card-body">
-          <h5 class="latest-card-title">LEGO Technic McLaren Formula 1 Race Car 42141</h5>
+          <h5 class="latest-card-title">{{this.name}}</h5>
           <a class="btn latest-card-btn" href="">more</a>
         </div>
       </li>
-
-      <li class="latest-card col-3" style="width: 18rem;">
-        <div class="img-frame">
-          <img class="imgshow"
-            src="https://www.toysrus.com.tw/dw/image/v2/BDGJ_PRD/on/demandware.static/-/Sites-master-catalog-toysrus/default/dw5a6b21ee/1/9/6/8/1968854c94fc8bd100fbfda3b400f2f5ec6e3b5d_31151_i1.jpg?sw=500&sh=500&q=75"
-            class="card-img-top" alt="LEGO Technic McLaren Formula 1 Race Car 42141">
-        </div>
-
-        <div class="latest-card-body">
-          <h5 class="latest-card-title">LEGO Technic McLaren Formula 1 Race Car 42141</h5>
-          <a class="btn latest-card-btn" href="">more</a>
-        </div>
-      </li>
-
-      <li class="latest-card col-3" style="width: 18rem;">
-        <div class="img-frame">
-          <img class="imgshow"
-            src="https://www.toysrus.com.tw/dw/image/v2/BDGJ_PRD/on/demandware.static/-/Sites-master-catalog-toysrus/default/dw5a6b21ee/1/9/6/8/1968854c94fc8bd100fbfda3b400f2f5ec6e3b5d_31151_i1.jpg?sw=500&sh=500&q=75"
-            class="card-img-top" alt="LEGO Technic McLaren Formula 1 Race Car 42141">
-        </div>
-
-        <div class="latest-card-body">
-          <h5 class="latest-card-title">LEGO Technic McLaren Formula 1 Race Car 42141</h5>
-          <a class="btn latest-card-btn" href="">more</a>
-        </div>
-      </li>
-
-      <li class="latest-card col-3" style="width: 18rem;">
-        <div class="img-frame">
-          <img class="imgshow"
-            src="https://www.toysrus.com.tw/dw/image/v2/BDGJ_PRD/on/demandware.static/-/Sites-master-catalog-toysrus/default/dw5a6b21ee/1/9/6/8/1968854c94fc8bd100fbfda3b400f2f5ec6e3b5d_31151_i1.jpg?sw=500&sh=500&q=75"
-            class="card-img-top" alt="LEGO Technic McLaren Formula 1 Race Car 42141">
-        </div>
-
-        <div class="latest-card-body">
-          <h5 class="latest-card-title">LEGO Technic McLaren Formula 1 Race Car 42141</h5>
-          <a class="btn latest-card-btn" href="">more</a>
-        </div>
-      </li>
+      {{/each}}
 
     </ul>
   </div>

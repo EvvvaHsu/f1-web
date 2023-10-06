@@ -130,7 +130,7 @@ module.exports = {
         amount: '2000',
         stock: faker.datatype.number(),
         description: faker.lorem.text(20),
-        image: 'https://www.google.com/aclk?sa=l&ai=DChcSEwjr1N3d1t6BAxX9FHsHHef-A1kYABALGgJ0bQ&ase=2&gclid=CjwKCAjwvfmoBhAwEiwAG2tqzAqrgIOCVgPDaDCSXt73kdO8ELQK0PVoAK_iXWUj3i-S5UBGr7xxsRoCIGIQAvD_BwE&sig=AOD64_31jJDFcTxV_RMfmHtp7f0IXUK_lw&ctype=5&nis=6&adurl&ved=2ahUKEwi0o87d1t6BAxVBmVYBHUWYCgAQvhd6BAgBEG4',
+        image: 'https://thegridclothing.com/cdn/shop/products/scuderia-alphatauri-f1-official-men-s-team-polo-shirt-2021-blue-7678-p_1200x1200.png?v=1642321017',
         size: 'M',
         created_at: new Date(),
         updated_at: new Date()
