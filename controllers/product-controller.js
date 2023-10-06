@@ -14,6 +14,13 @@ const productController = {
     } catch (err) {
       return next(err)
     }
+  },
+  cateprod: async (req, res, next) => {
+    try {
+      await res.render('cateprod')
+    } catch (err) {
+      return next(err)
+    }
   }
 }
 

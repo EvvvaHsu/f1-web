@@ -13,6 +13,8 @@ router.get('/forgotpassword', userController.forgotpasswordPage)
 
 router.get('/cart', userController.cartPage)
 
+router.get('/cateprod', productController.cateprod)
+
 router.get('/', productController.lastestproductsection)
 
 module.exports = router
