@@ -1,7 +1,7 @@
 const { Product } = require('../models')
 
 const productController = {
-  lastestproductsection: async (req, res, next) => {
+  getHomePage: async (req, res, next) => {
     try {
       const latestProducts = await Product.findAll({
         order: [
@@ -15,7 +15,7 @@ const productController = {
       return next(err)
     }
   },
-  cateprod: async (req, res, next) => {
+  getCateprod: async (req, res, next) => {
     try {
       await res.render('cateprod')
     } catch (err) {

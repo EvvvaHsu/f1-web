@@ -1,20 +1,25 @@
 const express = require('express')
 const router = express.Router()
-const userController = require('../controllers/user-controller')
-const productController = require('../controllers/product-controller')
+const passport = require('../config/passport')
+const userController = require('../controllers/user.controller')
+const productController = require('../controllers/product.controller')
 
-router.get('/signup', userController.signUpPage)
-router.post('/signup', userController.signUp)
+const { generalErrorHandler } = require('../middleware/error-handler')
 
-router.get('/signin', userController.signInPage)
-router.post('/signin', userController.signIn)
+router.get('/signup', userController.getSignUpPage)
+router.post('/signup', userController.postSignUp)
 
-router.get('/forgotpassword', userController.forgotpasswordPage)
+router.get('/signin', userController.getSignInPage)
+router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.postSignIn)
 
-router.get('/cart', userController.cartPage)
+router.get('/forgotpassword', userController.getForgotpasswordPage)
 
-router.get('/cateprod', productController.cateprod)
+router.get('/cart', userController.getCartPage)
 
-router.get('/', productController.lastestproductsection)
+router.get('/cateprod', productController.getCateprod)
+
+router.get('/', productController.getHomePage)
+
+router.use('/', generalErrorHandler)
 
 module.exports = router
