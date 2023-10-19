@@ -21,8 +21,8 @@ module.exports = {
       passhash: {
         type: Sequelize.STRING
       },
-      role: {
-        type: Sequelize.STRING
+      is_admin: {
+        type: Sequelize.BOOLEAN
       },
       phone: {
         type: Sequelize.STRING

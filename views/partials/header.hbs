@@ -16,6 +16,16 @@
         <li class="nav-item">
           <a class="nav-link" href="/signin">login</a>
         </li>
+        {{#if user}}
+        {{#if user.isAdmin}}
+        <li class="nav-item">
+          <a class="nav-link" href="/admin">Admin</a>
+        </li>
+        {{/if}}
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">logout</a>
+        </li>
+        {{/if}}
         <li class="nav-item">
           <a class="nav-link" href="/cart"><span class="material-icons">
               local_mall

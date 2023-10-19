@@ -8,6 +8,7 @@ const methodOverride = require('method-override')
 const session = require('express-session')
 const flash = require('connect-flash')
 const passport = require('./config/passport')
+const { getUser } = require('./helpers/auth-helpers')
 const routes = require('./routes')
 
 const app = express()
@@ -34,6 +35,7 @@ app.use(flash())
 app.use((req, res, next) => {
   res.locals.success_messages = req.flash('success_messages')
   res.locals.error_messages = req.flash('error_messages')
+  res.locals.user = getUser(req)
   next()
 })
 
