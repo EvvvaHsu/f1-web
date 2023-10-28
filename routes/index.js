@@ -22,6 +22,7 @@ router.get('/forgotpassword', userController.getForgotpasswordPage)
 
 router.get('/cart', authenticated, userController.getCartPage)
 
+router.get('/cateprod/:id', authenticated, productController.getProductDetails)
 router.get('/cateprod', authenticated, productController.getCateprod)
 
 router.get('/', authenticated, productController.getHomePage)

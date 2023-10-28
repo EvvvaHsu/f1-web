@@ -36,6 +36,15 @@ const productController = {
     } catch (err) {
       return next(err)
     }
+  },
+  getProductDetails: async (req, res, next) => {
+    try {
+      const benzproducts = await Product.findByPk(req.params.id)
+      const plainProduct = benzproducts.get({ plain: true })
+      await res.render('productdetails', { benzproducts: plainProduct })
+    } catch (err) {
+      return next(err)
+    }
   }
 }
 
