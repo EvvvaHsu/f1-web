@@ -17,7 +17,13 @@ const productController = {
   },
   getCateprod: async (req, res, next) => {
     try {
-      await res.render('cateprod')
+      const benzproducts = await Product.findAll({
+        order: [
+          ['createdAt', 'DESC']
+        ]
+      })
+      const plainBenzproducts = benzproducts.map(product => product.get({ plain: true }))
+      res.render('cateprod', { benzproducts: plainBenzproducts })
     } catch (err) {
       return next(err)
     }

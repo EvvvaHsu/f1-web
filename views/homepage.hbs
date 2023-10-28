@@ -78,17 +78,17 @@
 <section id="f1-latest">
   <div>
     <h3 class="sec-category">Latest</h3>
-    <ul class="latest">
+    <ul class="showproducts">
 
       {{#each latestProducts}}
-      <li class="latest-card col-3" style="width: 18rem;">
+      <li class="showproducts-card col-3" style="width: 18rem;">
         <div class="img-frame">
           <img class="imgshow" src="{{this.image}}" class="card-img-top" alt="{{this.name}}">
         </div>
 
-        <div class="latest-card-body">
-          <h5 class="latest-card-title">{{this.name}}</h5>
-          <a class="btn latest-card-btn" href="">more</a>
+        <div class="showproducts-card-body">
+          <h5 class="showproducts-card-title">{{this.name}}</h5>
+          <a class="btn showproducts-card-btn" href="">more</a>
         </div>
       </li>
       {{/each}}
