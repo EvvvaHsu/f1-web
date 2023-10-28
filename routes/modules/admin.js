@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
 
-router.use('/', (req, res) => res.redirect('/admin/adminpage'))
+router.get('/', (req, res) => res.render('/adminpage'))
 
 module.exports = router
