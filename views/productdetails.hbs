@@ -1,1 +1,37 @@
-<h1>product details page</h1>
+<h5 class="my-3 mt-4">Product ID: {{benzproducts.id}}</h5>
+
+<div class="row product-details d-flex justify-content-between">
+  <div class="col-5">
+    <img class="img-fluid" src="{{benzproducts.image}}" alt="{{benzproducts.name}}">
+  </div>
+  <div class="col-6 ms-3">
+    <h3 class="my-3">{{benzproducts.name}}</h3>
+    <h4 class="my-3">In stock</h4>
+    <h4 class="my-3">Price: US$ {{benzproducts.amount}}</h4>
+    <div class="product-options">
+      <h5 class="my-3">Size</h5>
+      <div>
+        <h5 class="my-3">Quantity</h5>
+
+        <form action="/" class="d-flex justify-content-around align-items-center" method="post">
+          {{!-- <label for="quantity"></label> --}}
+          <input class="product-qty" type="number" id="quantity" name="quantity" min="1" max="10" step="1" value="1">
+          <input type="submit" class="btn btn-light" value="Add to Cart">
+        </form>
+
+      </div>
+
+    </div>
+
+    <div>
+      <h5 class="my-3">Description</h5>
+      <p class="my-3">{{benzproducts.description}}</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="recommandation">
+  <h2 class="my-3">You may also like</h2>
+  
+</div>

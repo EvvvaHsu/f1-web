@@ -44,8 +44,10 @@ a {
 .nav-item.dropdown:hover .dropdown-menu {
   display: block;
   position: absolute;
-  top: 100%;  /* 使其出現在父元素的下方 */
-  left: 0;    /* 與父元素左側對齊 */
+  top: 100%;
+  /* 使其出現在父元素的下方 */
+  left: 0;
+  /* 與父元素左側對齊 */
 }
 
 .nav-item.dropdown .dropdown-toggle::after {
@@ -304,4 +306,40 @@ a {
       transform: scale(1.2);
     }
   }
+}
+
+//product details page
+
+.product-details {
+  padding: 20px;
+
+  h3 {
+    font-size: 25px;
+  }
+
+  h4 {
+    font-size: 20px;
+  }
+
+  .product-options {
+    background-color: rgb(240, 237, 237);
+    padding: 20px;
+    h5 {
+      font-size: 20px;
+    }
+
+    .product-qty{
+      border: solid 1px;
+      border-radius: 5px;
+      height: 35px;
+    }
+
+    form {
+      height: 80px;
+    }
+  }
+}
+
+.recommandation {
+  font-size: 25px;
 }

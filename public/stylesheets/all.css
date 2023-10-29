@@ -173,8 +173,10 @@ a:hover {
 .nav-item.dropdown:hover .dropdown-menu {
   display: block;
   position: absolute;
-  top: 100%; /* 使其出現在父元素的下方 */
-  left: 0; /* 與父元素左側對齊 */
+  top: 100%;
+  /* 使其出現在父元素的下方 */
+  left: 0;
+  /* 與父元素左側對齊 */
 }
 
 .nav-item.dropdown .dropdown-toggle::after {
@@ -397,4 +399,33 @@ a:hover {
 }
 .img-align .category-img:hover {
   transform: scale(1.2);
+}
+
+.product-details {
+  padding: 20px;
+}
+.product-details h3 {
+  font-size: 25px;
+}
+.product-details h4 {
+  font-size: 20px;
+}
+.product-details .product-options {
+  background-color: rgb(240, 237, 237);
+  padding: 20px;
+}
+.product-details .product-options h5 {
+  font-size: 20px;
+}
+.product-details .product-options .product-qty {
+  border: solid 1px;
+  border-radius: 5px;
+  height: 35px;
+}
+.product-details .product-options form {
+  height: 80px;
+}
+
+.recommandation {
+  font-size: 25px;
 }/*# sourceMappingURL=all.css.map */
