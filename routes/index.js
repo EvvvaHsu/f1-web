@@ -19,6 +19,10 @@ router.post('/signin', passport.authenticate('local', { failureRedirect: '/signi
 router.get('/logout', userController.getLogout)
 
 router.get('/forgotpassword', userController.getForgotpasswordPage)
+router.post('/forgotpassword', userController.postForgotPassword)
+
+router.get('/resetpassword/:id/:token', userController.getResetPasswordPage)
+router.post('/resetpassword/:id/:token', userController.postResetPassword)
 
 router.get('/cart', authenticated, userController.getCartPage)
 
