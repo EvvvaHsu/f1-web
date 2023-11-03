@@ -5,6 +5,11 @@ const faker = require('faker')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Users', null, {
+      truncate: true,
+      cascade: true,
+      restartIdentity: true
+    })
     await queryInterface.bulkInsert('Users', [{
       firstname: 'root',
       lastname: 'admin',

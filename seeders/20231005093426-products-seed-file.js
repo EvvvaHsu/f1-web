@@ -4,6 +4,12 @@ const faker = require('faker')
 
 module.exports = {
   async up (queryInterface, Sequelize) {
+    await queryInterface.bulkDelete('Products', null, {
+      truncate: true,
+      cascade: true,
+      restartIdentity: true
+    })
+
     await queryInterface.bulkInsert('Products', [
       {
         name: 'Mercedes AMG Benz F1 GEORGE RUSSELL gloves',
