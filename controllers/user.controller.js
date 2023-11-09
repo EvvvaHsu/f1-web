@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const { User } = require('../models')
+const nodemailer = require('nodemailer')
 // const { Op } = sequelize
 
 const userController = {
@@ -62,7 +63,7 @@ const userController = {
     try {
       const { email } = req.body
       // res.send(email)
-
+      const HOST = process.env.HOST
       const user = await User.findOne({ where: { email }, raw: true })
 
       if (!user) throw new Error('User does not exist')
@@ -72,14 +73,37 @@ const userController = {
         email: user.email,
         id: user.id
       }
-      const token = jwt.sign(payload, secret, { expiresIn: '1d' })
-      const link = `http://localhost:3000/resetpassword/${user.id}/${token}`
+      const token = jwt.sign(payload, secret, { expiresIn: '30m' })
+      const link = HOST + `/resetpassword/${user.id}/${token}`
+
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: 'ychsu7149@gmail.com',
+          pass: 'yourpassword'
+        }
+      })
+
+      const mailOptions = {
+        from: 'ychsu7149@gmail.com',
+        to: 'ychsu7149@gmail.com',
+        subject: 'Sending Email using Node.js',
+        text: link
+      }
+
+      transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+          console.log(error)
+        } else {
+          console.log('Email sent: ' + info.response)
+        }
+      })
 
       console.log(link)
       req.flash('success_messages', 'link has been sent to your email !')
       res.redirect('/forgotpassword')
     } catch (err) {
-      return next(err)
+      // return next(err)
     }
   },
   getResetPasswordPage: async (req, res, next) => {
@@ -111,7 +135,7 @@ const userController = {
       const secret = JWT_SECRET + user.passhash
       const payload = jwt.verify(token, secret)
 
-      await User.update({ passhash: await bcrypt.hash(passhash, 10) }, { where: { id } })
+      await User.update({ passhash: await bcrypt.hash(passhash, 10), token }, { where: { id } })
 
       req.flash('success_messages', 'Password has been reset!')
       res.redirect('/signin')

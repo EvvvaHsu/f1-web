@@ -24,6 +24,9 @@ module.exports = {
       is_admin: {
         type: Sequelize.BOOLEAN
       },
+      token: {
+        type: Sequelize.STRING
+      },
       phone: {
         type: Sequelize.STRING
       },
