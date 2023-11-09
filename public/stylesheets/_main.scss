@@ -36,6 +36,10 @@ a {
   }
 }
 
+h1 {
+  font-size: 30px;
+}
+
 // header
 .nav-item.dropdown {
   position: relative;
@@ -324,11 +328,12 @@ a {
   .product-options {
     background-color: rgb(240, 237, 237);
     padding: 20px;
+
     h5 {
       font-size: 20px;
     }
 
-    .product-qty{
+    .product-qty {
       border: solid 1px;
       border-radius: 5px;
       height: 35px;
@@ -342,4 +347,52 @@ a {
 
 .recommandation {
   font-size: 25px;
+}
+
+//admin category page
+
+#table {
+  margin: 0 auto;
+  --bs-table-bg: transparent;
+  width: 70%;
+
+  thead {
+    background-color: rgb(240, 237, 237);
+
+    tr {
+      text-align: center;
+
+      th {
+        padding: 20px;
+      }
+    }
+
+  }
+
+  tbody {
+    tr {
+      text-align: center;
+
+      &:hover {
+        background-color: rgb(211, 206, 206);
+      }
+
+      .btn {
+        border: none;
+
+        &:hover {
+          background-color: rgb(235, 235, 234);
+        }
+      }
+
+      .btn-edit {
+        color: rgb(39, 39, 174);
+      }
+
+      .btn-delete {
+        color: red;
+      }
+    }
+  }
+
 }

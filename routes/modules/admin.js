@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-router.get('/', (req, res) => res.render('/adminpage'))
+const adminController = require('../../controllers/admin.controller')
+
+router.get('/categories', adminController.getCategories)
+
+router.get('/', (req, res) => res.redirect('admin/categories'))
 
 module.exports = router

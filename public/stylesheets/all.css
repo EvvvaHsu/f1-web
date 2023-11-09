@@ -166,6 +166,10 @@ a:hover {
   color: white;
 }
 
+h1 {
+  font-size: 30px;
+}
+
 .nav-item.dropdown {
   position: relative;
 }
@@ -428,4 +432,37 @@ a:hover {
 
 .recommandation {
   font-size: 25px;
+}
+
+#table {
+  margin: 0 auto;
+  --bs-table-bg: transparent;
+  width: 70%;
+}
+#table thead {
+  background-color: rgb(240, 237, 237);
+}
+#table thead tr {
+  text-align: center;
+}
+#table thead tr th {
+  padding: 20px;
+}
+#table tbody tr {
+  text-align: center;
+}
+#table tbody tr:hover {
+  background-color: rgb(211, 206, 206);
+}
+#table tbody tr .btn {
+  border: none;
+}
+#table tbody tr .btn:hover {
+  background-color: rgb(235, 235, 234);
+}
+#table tbody tr .btn-edit {
+  color: rgb(39, 39, 174);
+}
+#table tbody tr .btn-delete {
+  color: red;
 }/*# sourceMappingURL=all.css.map */
