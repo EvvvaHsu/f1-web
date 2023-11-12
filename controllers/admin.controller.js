@@ -112,6 +112,43 @@ const adminController = {
       return next(err)
     }
   },
+  getEditProduct: async (req, res, next) => {
+    try {
+      const product = await Product.findByPk(req.params.id, { raw: true })
+
+      res.render('admin/edit-product', { product })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  putProduct: async (req, res, next) => {
+    try {
+      const { name, amount, stock, size, description } = req.body
+      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
+
+      const product = await Product.findByPk(req.params.id)
+      if (!product) throw new Error('Product does not exist')
+
+      const { file } = req
+      const filePath = file ? await localFileHandler(file) : null
+
+      await product.update({
+        name,
+        amount,
+        stock,
+        size,
+        description,
+        image: filePath || product.image,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+      req.flash('success_messages', 'Product updated successfully!')
+      res.redirect('/admin/products')
+    } catch (err) {
+      return next(err)
+    }
+  },
   deleteProduct: async (req, res, next) => {
     try {
       const product = await Product.findByPk(req.params.id)
