@@ -1,3 +1,28 @@
 {{> admin-tabs route='products'}}
 
-<h1>this is product page</h1>
+<table class="table align-middle" id="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">#</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each products}}
+    <tr>
+      <th scope="row">{{this.id}}</th>
+      <td>{{this.name}}</td>
+      <td>
+        <a class="btn btn-edit text-decoration-none" href="/admin/products/{{this.id}}">
+          Edit
+        </a>
+        <form action="/admin/products/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-delete text-decoration-none"
+            onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
