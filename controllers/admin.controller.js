@@ -1,3 +1,4 @@
+const { raw } = require('express')
 const { Category } = require('../models')
 
 const adminController = {
@@ -22,6 +23,22 @@ const adminController = {
       const category = await Category.create({ name }, { raw: true })
 
       if (!category) return ''
+
+      res.redirect('/admin/categories')
+    } catch (err) {
+      return next(err)
+    }
+  },
+  putCategory: async (req, res, next) => {
+    try {
+      const { name } = req.body
+      if (!name) throw new Error('Category name is required')
+
+      const category = await Category.findByPk(req.params.id)
+
+      if (!category) return ''
+
+      await category.update({ name })
 
       res.redirect('/admin/categories')
     } catch (err) {
