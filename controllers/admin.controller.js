@@ -68,6 +68,19 @@ const adminController = {
     } catch (err) {
       return next(err)
     }
+  },
+  deleteProduct: async (req, res, next) => {
+    try {
+      const product = await Product.findByPk(req.params.id)
+
+      if (!product) throw new Error('Product does not exist')
+
+      await product.destroy()
+
+      res.redirect('/admin/products')
+    } catch (err) {
+      return next(err)
+    }
   }
 }
 

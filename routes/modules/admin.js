@@ -3,7 +3,7 @@ const router = express.Router()
 
 const adminController = require('../../controllers/admin.controller')
 
-
+router.delete('/products/:id', adminController.deleteProduct)
 router.get('/products', adminController.getProducts)
 
 router.get('/categories/:id', adminController.getCategories)
