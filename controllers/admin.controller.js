@@ -1,5 +1,5 @@
-const { raw } = require('express')
 const { Category } = require('../models')
+const { Product } = require('../models')
 
 const adminController = {
   getCategories: async (req, res, next) => {
@@ -54,6 +54,17 @@ const adminController = {
       await category.destroy()
 
       res.redirect('/admin/categories')
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getProducts: async (req, res, next) => {
+    try {
+      const products = await Product.findAll({ raw: true })
+
+      if (!products) return ''
+
+      res.render('admin/products', { products })
     } catch (err) {
       return next(err)
     }
