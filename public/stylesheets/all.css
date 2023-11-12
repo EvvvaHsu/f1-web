@@ -434,6 +434,12 @@ h1 {
   font-size: 25px;
 }
 
+.category-edit {
+  justify-content: center;
+  padding: 30px;
+  margin-bottom: 10px;
+}
+
 #table {
   margin: 0 auto;
   --bs-table-bg: transparent;

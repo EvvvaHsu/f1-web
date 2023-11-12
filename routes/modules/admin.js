@@ -5,6 +5,8 @@ const adminController = require('../../controllers/admin.controller')
 
 router.get('/categories', adminController.getCategories)
 
+router.post('/categories', adminController.postCategory)
+
 router.get('/', (req, res) => res.redirect('admin/categories'))
 
 module.exports = router
