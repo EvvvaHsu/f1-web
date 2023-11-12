@@ -1,5 +1,6 @@
-const { Category } = require('../models')
-const { Product } = require('../models')
+const { Category, Product } = require('../models')
+
+const { localFileHandler } = require('../helpers/file-helpers')
 
 const adminController = {
   getCategories: async (req, res, next) => {
@@ -65,6 +66,48 @@ const adminController = {
       if (!products) return ''
 
       res.render('admin/products', { products })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getCreateProduct: async (req, res, next) => {
+    try {
+      const categories = await Category.findAll({ raw: true })
+
+      if (!categories) return ''
+
+      res.render('admin/create-product', { categories })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  postProduct: async (req, res, next) => {
+    try {
+      const { name, amount, stock, size, description } = req.body
+      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
+
+      const { file } = req
+      let filePath = ''
+
+      if (file) {
+        filePath = await localFileHandler(file)
+      }
+
+      const newProduct = await Product.create({
+        name,
+        amount,
+        stock,
+        size,
+        description,
+        image: filePath,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+      req.flash('success_messages', 'Product created successfully!')
+      req.session.createdData = { product: newProduct }
+
+      res.redirect('/admin/products')
     } catch (err) {
       return next(err)
     }

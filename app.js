@@ -2,6 +2,7 @@
 require('dotenv').config()
 // }
 
+const path = require('path')
 const express = require('express')
 const handlebars = require('express-handlebars')
 const methodOverride = require('method-override')
@@ -30,6 +31,7 @@ app.use(passport.session())
 app.use(express.static('public'))
 
 app.use(methodOverride('_method'))
+app.use('/upload', express.static(path.join(__dirname, 'upload')))
 
 app.use(flash())
 
