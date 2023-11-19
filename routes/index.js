@@ -8,7 +8,7 @@ const productController = require('../controllers/product.controller')
 const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
-router.use('/admin', admin)
+router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/signup', userController.getSignUpPage)
 router.post('/signup', userController.postSignUp)
