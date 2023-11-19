@@ -110,10 +110,13 @@ const userController = {
   },
   getResetPasswordPage: async (req, res, next) => {
     try {
-      const { id, token } = req.params
-      // res.send(req.params)
+      const { token } = req.params
+      console.log(req.params)
 
-      const user = await User.findOne({ where: { id }, raw: true })
+      const decoded = jwt.decode(token)
+      if (!decoded) throw new Error('Invalid token')
+
+      const user = await User.findOne({ where: { id: decoded.id }, raw: true })
 
       if (!user) throw new Error('User does not exist')
 
@@ -126,18 +129,22 @@ const userController = {
   },
   postResetPassword: async (req, res, next) => {
     try {
-      const { id, token } = req.params
+      const { token } = req.params
       const { passhash, passhashCheck } = req.body
 
-      const user = await User.findOne({ where: { id }, raw: true })
+      const decoded = jwt.decode(token)
+      if (!decoded) throw new Error('Invalid token')
+
+      const user = await User.findOne({ where: { id: decoded.id }, raw: true })
 
       if (!user) throw new Error('User does not exist')
       if (passhash !== passhashCheck) throw new Error('Password does not match')
 
       const secret = JWT_SECRET + user.passhash
       const payload = jwt.verify(token, secret)
+      console.log(payload)
 
-      await User.update({ passhash: await bcrypt.hash(passhash, 10), token }, { where: { id } })
+      await User.update({ passhash: await bcrypt.hash(passhash, 10), token }, { where: { id: decoded.id } })
 
       req.flash('success_messages', 'Password has been reset!')
       res.redirect('/signin')
