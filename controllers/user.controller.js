@@ -79,21 +79,23 @@ const userController = {
       const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-          user: 'ychsu7149@gmail.com',
-          pass: 'yourpassword'
+          user: process.env.GMAIL_USER,
+          pass: process.env.GMAIL_PASS
         }
       })
 
+      await transporter.verify()
+
       const mailOptions = {
-        from: 'ychsu7149@gmail.com',
-        to: 'ychsu7149@gmail.com',
+        from: process.env.GMAIL_USER,
+        to: process.env.GMAIL_USER,
         subject: 'Sending Email using Node.js',
         text: link
       }
 
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log(error)
+      transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          console.log(err)
         } else {
           console.log('Email sent: ' + info.response)
         }
@@ -103,7 +105,7 @@ const userController = {
       req.flash('success_messages', 'link has been sent to your email !')
       res.redirect('/forgotpassword')
     } catch (err) {
-      // return next(err)
+      return next(err)
     }
   },
   getResetPasswordPage: async (req, res, next) => {
