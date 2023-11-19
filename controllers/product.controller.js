@@ -1,4 +1,4 @@
-const { Product } = require('../models')
+const { Product, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const productController = {
@@ -22,8 +22,14 @@ const productController = {
       const page = Number(req.query.page) || 1
       const limit = Number(req.query.limit) || DEFAULT_LIMIT
       const offset = getOffset(limit, page)
+      const category = req.query.category
+      const categories = await Category.findAll()
+      console.log('categories:', categories)
 
       const benzproducts = await Product.findAndCountAll({
+        include: [
+          { model: Category, as: 'Categoriedproducts', where: category ? { name: category } : null }
+        ],
         order: [
           ['createdAt', 'DESC']
         ],
@@ -32,7 +38,7 @@ const productController = {
         nest: true
       })
       const plainBenzproducts = benzproducts.rows.map(product => product.get({ plain: true }))
-      await res.render('cateprod', { benzproducts: plainBenzproducts, pagination: getPagination(limit, page, benzproducts.count) })
+      await res.render('cateprod', { benzproducts: plainBenzproducts, categories, pagination: getPagination(limit, page, benzproducts.count) })
     } catch (err) {
       return next(err)
     }

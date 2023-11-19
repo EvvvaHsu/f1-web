@@ -54,7 +54,10 @@
           Teams
         </a>
         <ul class="dropdown-menu dropdown-menu-dark">
-          <li><a class="dropdown-item" href="/cateprod">Mercedes</a></li>
+          {{#each categories}}
+          <li><a class="dropdown-item" href="/cateprod?category={{this.name}}">{{this.name}}</a></li>
+          {{/each}}
+          {{!-- <li><a class="dropdown-item" href="/cateprod">Mercedes</a></li>
           <li><a class="dropdown-item" href="#">Haas</a></li>
           <li><a class="dropdown-item" href="#">Red Bull</a></li>
           <li><a class="dropdown-item" href="#">Alpine</a></li>
@@ -63,7 +66,7 @@
           <li><a class="dropdown-item" href="#">Alfa Romeo</a></li>
           <li><a class="dropdown-item" href="#">Alpha Tauri</a></li>
           <li><a class="dropdown-item" href="#">Williams</a></li>
-          <li><a class="dropdown-item" href="#">Aston Martin</a></li>
+          <li><a class="dropdown-item" href="#">Aston Martin</a></li> --}}
         </ul>
       </li>
     </ul>

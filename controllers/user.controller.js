@@ -101,7 +101,7 @@ const userController = {
         }
       })
 
-      console.log(link)
+      console.info(link)
       req.flash('success_messages', 'link has been sent to your email !')
       res.redirect('/forgotpassword')
     } catch (err) {
@@ -142,7 +142,7 @@ const userController = {
 
       const secret = JWT_SECRET + user.passhash
       const payload = jwt.verify(token, secret)
-      console.log(payload)
+      console.info(payload)
 
       await User.update({ passhash: await bcrypt.hash(passhash, 10), token }, { where: { id: decoded.id } })
 
