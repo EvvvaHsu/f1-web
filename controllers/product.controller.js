@@ -55,7 +55,13 @@ const productController = {
     try {
       const seletedproducts = await Product.findByPk(req.params.id)
       const plainProduct = seletedproducts.get({ plain: true })
-      await res.render('productdetails', { seletedproducts: plainProduct })
+
+      const categories = await Category.findAll()
+      const categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
+
+      const categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+
+      await res.render('productdetails', { seletedproducts: plainProduct, categories, categoryTeams, categoryDrivers })
     } catch (err) {
       return next(err)
     }
