@@ -11,7 +11,13 @@ const productController = {
         // limit: 4
       })
       const plainProducts = latestProducts.map(product => product.get({ plain: true }))
-      res.render('homepage', { latestProducts: plainProducts })
+
+      const categories = await Category.findAll()
+      const categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
+
+      const categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+
+      res.render('homepage', { latestProducts: plainProducts, categoryTeams, categoryDrivers })
     } catch (err) {
       return next(err)
     }
