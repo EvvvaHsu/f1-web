@@ -3,7 +3,7 @@
   <ul class="pagination">
 
     <li class="page-item {{#ifCond pagination.currentPage 1}}disabled{{/ifCond}}">
-      <a class="page-link" href="/cateprod?page={{pagination.prev}}" aria-label="Previous">
+      <a class="page-link" href="/cateprod?category={{../category}}&page={{pagination.prev}}" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
@@ -16,14 +16,14 @@
     {{else}}
 
     <li class="page-item">
-      <a class="page-link" href="/cateprod?page={{this}}">{{this}}</a>
+      <a class="page-link" href="/cateprod?category={{../category}}&page={{this}}">{{this}}</a>
     </li>
 
     {{/ifCond}}
     {{/each}}
 
     <li class="page-item {{#ifCond pagination.currentPage pagination.totalPage}}disabled{{/ifCond}}">
-      <a class="page-link" href="/cateprod?page={{pagination.next}}" aria-label="Next">
+      <a class="page-link" href="/cateprod?category={{../category}}&page={{pagination.next}}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
@@ -51,36 +51,3 @@
     </ul>
   </div>
 </section>
-
-{{!-- pagination --}}
-<nav class="mt-3" aria-label="page navigation">
-  <ul class="pagination">
-
-    <li class="page-item {{#ifCond pagination.currentPage 1}}disabled{{/ifCond}}">
-      <a class="page-link" href="/cateprod?page={{pagination.prev}}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
-
-    {{#each pagination.pages}}
-    {{#ifCond this ../pagination.currentPage}}
-
-    <li class="page-item active"><a class="page-link" href="#">{{this}}</a></li>
-
-    {{else}}
-
-    <li class="page-item">
-      <a class="page-link" href="/cateprod?page={{this}}">{{this}}</a>
-    </li>
-
-    {{/ifCond}}
-    {{/each}}
-
-    <li class="page-item {{#ifCond pagination.currentPage pagination.totalPage}}disabled{{/ifCond}}">
-      <a class="page-link" href="/cateprod?page={{pagination.next}}" aria-label="Next">
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
-
-  </ul>
-</nav>

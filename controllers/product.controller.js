@@ -24,19 +24,24 @@ const productController = {
   },
   getCateprod: async (req, res, next) => {
     try {
-      const DEFAULT_LIMIT = 4
+      const DEFAULT_LIMIT = 2
       const page = Number(req.query.page) || 1
       const limit = Number(req.query.limit) || DEFAULT_LIMIT
       const offset = getOffset(limit, page)
       const category = req.query.category
-      const categories = await Category.findAll()
-      const categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
+      console.log(category)
+      console.log(page)
+      console.log(limit)
+      console.log(offset)
 
-      const categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+      const categories = await Category.findAll()
+      const categoryTeams = categories.map(categoryteam => categoryteam.dataValues.name).slice(0, 10)
+
+      const categoryDrivers = categories.map(categorydriver => categorydriver.dataValues.name).slice(10, 30)
 
       const seletedproducts = await Product.findAndCountAll({
         include: [
-          { model: Category, as: 'Categoriedproducts', where: category ? { name: category } : null }
+          { model: Category, as: 'Categoriedproducts', where: category ? { name: category } : undefined }
         ],
         order: [
           ['createdAt', 'DESC']
@@ -45,8 +50,12 @@ const productController = {
         offset,
         nest: true
       })
+
+      console.log(seletedproducts)
+
       const plainProducts = seletedproducts.rows.map(product => product.get({ plain: true }))
-      await res.render('cateprod', { seletedproducts: plainProducts, categories, pagination: getPagination(limit, page, seletedproducts.count), categoryTeams, categoryDrivers })
+
+      await res.render('cateprod', { seletedproducts: plainProducts, category, categories, pagination: getPagination(limit, page, seletedproducts.count), categoryTeams, categoryDrivers })
     } catch (err) {
       return next(err)
     }
