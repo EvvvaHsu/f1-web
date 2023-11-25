@@ -30,9 +30,11 @@ const productController = {
       const offset = getOffset(limit, page)
       const category = req.query.category
       const categories = await Category.findAll()
-      console.log('categories:', categories)
+      const categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
 
-      const benzproducts = await Product.findAndCountAll({
+      const categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+
+      const seletedproducts = await Product.findAndCountAll({
         include: [
           { model: Category, as: 'Categoriedproducts', where: category ? { name: category } : null }
         ],
@@ -43,17 +45,17 @@ const productController = {
         offset,
         nest: true
       })
-      const plainBenzproducts = benzproducts.rows.map(product => product.get({ plain: true }))
-      await res.render('cateprod', { benzproducts: plainBenzproducts, categories, pagination: getPagination(limit, page, benzproducts.count) })
+      const plainProducts = seletedproducts.rows.map(product => product.get({ plain: true }))
+      await res.render('cateprod', { seletedproducts: plainProducts, categories, pagination: getPagination(limit, page, seletedproducts.count), categoryTeams, categoryDrivers })
     } catch (err) {
       return next(err)
     }
   },
   getProductDetails: async (req, res, next) => {
     try {
-      const benzproducts = await Product.findByPk(req.params.id)
-      const plainProduct = benzproducts.get({ plain: true })
-      await res.render('productdetails', { benzproducts: plainProduct })
+      const seletedproducts = await Product.findByPk(req.params.id)
+      const plainProduct = seletedproducts.get({ plain: true })
+      await res.render('productdetails', { seletedproducts: plainProduct })
     } catch (err) {
       return next(err)
     }

@@ -1,13 +1,13 @@
-<h5 class="my-3 mt-4">Product ID: {{benzproducts.id}}</h5>
+<h5 class="my-3 mt-4">Product ID: {{seletedproducts.id}}</h5>
 
 <div class="row product-details d-flex justify-content-between">
   <div class="col-5">
-    <img class="img-fluid" src="{{benzproducts.image}}" alt="{{benzproducts.name}}">
+    <img class="img-fluid" src="{{seletedproducts.image}}" alt="{{seletedproducts.name}}">
   </div>
   <div class="col-6 ms-3">
-    <h3 class="my-3">{{benzproducts.name}}</h3>
+    <h3 class="my-3">{{seletedproducts.name}}</h3>
     <h4 class="my-3">In stock</h4>
-    <h4 class="my-3">Price: US$ {{benzproducts.amount}}</h4>
+    <h4 class="my-3">Price: US$ {{seletedproducts.amount}}</h4>
     <div class="product-options">
       <h5 class="my-3">Size</h5>
       <div>
@@ -25,7 +25,7 @@
 
     <div>
       <h5 class="my-3">Description</h5>
-      <p class="my-3">{{benzproducts.description}}</p>
+      <p class="my-3">{{seletedproducts.description}}</p>
     </div>
   </div>
 
