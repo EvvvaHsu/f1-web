@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local')
 const bcrypt = require('bcryptjs')
 const { User } = require('../models')
 
-passport.use(
+passport.use('user-local',
   new LocalStrategy(
     {
       usernameField: 'email',
@@ -13,6 +13,7 @@ passport.use(
     },
     async (req, email, passhash, cb) => {
       try {
+        console.log('User Local Strategy called!!!!!!!!!!!!!!!!!')
         const user = await User.findOne({ where: { email } })
 
         if (!email || !passhash) throw new Error('All fields are required')
@@ -25,6 +26,42 @@ passport.use(
 
         if (!res) {
           return cb(null, false, req.flash('error_messages', 'Incorrect email or password'))
+        }
+
+        return cb(null, user)
+      } catch (err) {
+        return cb(err)
+      }
+    }
+  )
+)
+
+passport.use('admin-local',
+  new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'passhash',
+      passReqToCallback: true
+    },
+    async (req, email, passhash, cb) => {
+      try {
+        console.log('Admin Local Strategy called')
+        const user = await User.findOne({ where: { email } })
+
+        if (!email || !passhash) throw new Error('All fields are required')
+
+        if (!user) {
+          return cb(null, false, req.flash('error_messages', 'Incorrect email or password'))
+        }
+
+        const res = await bcrypt.compare(passhash, user.passhash)
+
+        if (!res) {
+          return cb(null, false, req.flash('error_messages', 'Incorrect email or password'))
+        }
+
+        if (!user.isAdmin) {
+          return cb(null, false, req.flash('error_messages', 'Access denied! Only administrators can sign in here.'))
         }
 
         return cb(null, user)

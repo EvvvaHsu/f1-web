@@ -3,6 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const { User } = require('../models')
+const { authenticatedAdmin } = require('../middleware/auth')
+const { ensureAuthenticated, getUser } = require('../helpers/auth-helpers')
 const nodemailer = require('nodemailer')
 // const { Op } = sequelize
 
@@ -47,6 +49,17 @@ const userController = {
     try {
       req.flash('success_messages', 'Sign in successfully!')
       res.redirect('/')
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getAdminSignInPage: async (req, res) => {
+    await res.render('adminsignin')
+  },
+  postAdminSignIn: async (req, res, next) => {
+    try {
+      req.flash('success_messages', 'Admin sign in successfully!')
+      res.redirect('/admin')
     } catch (err) {
       return next(err)
     }

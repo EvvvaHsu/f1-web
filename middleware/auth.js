@@ -11,7 +11,7 @@ const authenticatedAdmin = (req, res, next) => {
   if (ensureAuthenticated(req) && getUser(req).isAdmin) {
     return next()
   }
-  res.redirect('/signin')
+  res.redirect('/adminsignin')
 }
 
 const isLoggedIn = (req, res, next) => {
