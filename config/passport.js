@@ -13,7 +13,6 @@ passport.use('user-local',
     },
     async (req, email, passhash, cb) => {
       try {
-        console.log('User Local Strategy called!!!!!!!!!!!!!!!!!')
         const user = await User.findOne({ where: { email } })
 
         if (!email || !passhash) throw new Error('All fields are required')
@@ -45,7 +44,6 @@ passport.use('admin-local',
     },
     async (req, email, passhash, cb) => {
       try {
-        console.log('Admin Local Strategy called')
         const user = await User.findOne({ where: { email } })
 
         if (!email || !passhash) throw new Error('All fields are required')

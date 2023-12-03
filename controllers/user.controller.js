@@ -59,7 +59,7 @@ const userController = {
   postAdminSignIn: async (req, res, next) => {
     try {
       req.flash('success_messages', 'Admin sign in successfully!')
-      res.redirect('/admin')
+      res.redirect('/admin/products')
     } catch (err) {
       return next(err)
     }
