@@ -8,6 +8,20 @@ const productController = require('../controllers/product.controller')
 const { authenticated, authenticatedAdmin } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
+const { Category } = require('../models')
+
+router.use(async (req, res, next) => {
+  try {
+    const categories = await Category.findAll()
+    res.locals.categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
+    res.locals.categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+
+    next()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/signup', userController.getSignUpPage)
