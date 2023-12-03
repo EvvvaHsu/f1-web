@@ -5,7 +5,7 @@ const admin = require('./modules/admin')
 const userController = require('../controllers/user.controller')
 const productController = require('../controllers/product.controller')
 
-const { authenticated, authenticatedAdmin } = require('../middleware/auth')
+const { authenticated, authenticatedAdmin, isLoggedIn } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
 const { Category } = require('../models')
@@ -27,7 +27,7 @@ router.use('/admin', authenticatedAdmin, admin)
 router.get('/signup', userController.getSignUpPage)
 router.post('/signup', userController.postSignUp)
 
-router.get('/signin', userController.getSignInPage)
+router.get('/signin', isLoggedIn, userController.getSignInPage)
 router.post('/signin', passport.authenticate('local', { failureRedirect: '/signin', failureFlash: true }), userController.postSignIn)
 
 router.get('/logout', userController.getLogout)

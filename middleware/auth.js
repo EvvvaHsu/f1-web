@@ -14,7 +14,15 @@ const authenticatedAdmin = (req, res, next) => {
   res.redirect('/signin')
 }
 
+const isLoggedIn = (req, res, next) => {
+  if (getUser(req) && ensureAuthenticated(req)) {
+    res.redirect('/')
+  }
+  next()
+}
+
 module.exports = {
   authenticated,
-  authenticatedAdmin
+  authenticatedAdmin,
+  isLoggedIn
 }
