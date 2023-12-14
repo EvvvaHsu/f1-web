@@ -116,7 +116,10 @@ const adminController = {
     try {
       const product = await Product.findByPk(req.params.id, { raw: true })
 
-      res.render('admin/edit-product', { product })
+      console.log(product)
+      const categories = await Category.findAll({ raw: true })
+
+      res.render('admin/edit-product', { product, categories })
     } catch (err) {
       return next(err)
     }

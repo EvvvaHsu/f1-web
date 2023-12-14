@@ -28,7 +28,7 @@
 
 {{!-- <div class="form-row mb-3">
   <label class="form-label" for="categoryId">Category</label>
-  <select class="form-control" id="categoryId" name="categoryId">
+  <select class="form-control select2" id="categoryId" name="categoryId[]" multiple>
     {{#each categories}}
     <option value="{{this.id}}" {{#ifCond this.id ../product.categoryId}} selected {{/ifCond}}>
       {{this.name}}
@@ -36,6 +36,13 @@
     {{/each}}
   </select>
 </div> --}}
+
+<div class="group">
+  <label class="form-label d-flex " for="project_type">Category</label>
+  <select class="project_type" id="project_type" multiple="multiple">
+    <option value=""></option>
+  </select>
+</div> 
 
 <div class="form-row mb-3">
   <label class="form-label" for="description">Description</label>
