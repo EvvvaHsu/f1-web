@@ -32,6 +32,7 @@ app.use(express.static('public'))
 
 app.use(methodOverride('_method'))
 app.use('/upload', express.static(path.join(__dirname, 'upload')))
+app.use('/helpers', express.static(path.join(__dirname, 'helpers')))
 
 app.use(flash())
 
