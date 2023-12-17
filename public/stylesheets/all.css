@@ -138,8 +138,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-select {
-  width: 200px;
+.project-type {
   margin-bottom: 20px;
 }
 
