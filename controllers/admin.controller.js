@@ -117,6 +117,26 @@ const adminController = {
       const product = await Product.findByPk(req.params.id, { raw: true })
 
       console.log(product)
+
+      const data = [
+        {
+          id: 1,
+          project_type: 'tv'
+        },
+        {
+          id: 2,
+          project_type: 'game'
+        },
+        {
+          id: 3,
+          project_type: 'film'
+        },
+        {
+          id: 4,
+          project_type: 'movie'
+        }
+      ]
+
       const categories = await Category.findAll({ raw: true })
 
       res.render('admin/edit-product', { product, categories })

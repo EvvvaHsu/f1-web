@@ -2,6 +2,32 @@
 
 $('#project_type').select2({ width: '100%', placeholder: 'Select an Option', allowClear: true })
 
+selType()
+
+function selType () {
+  alert('hey')
+
+  $('#mySelect').select2({
+    placeholder: 'Select an option',
+    ajax: {
+      url: '/admin/products/:id/edit',
+      dataType: 'json',
+      processResults: function (data) {
+        return {
+          results: data.map(function (item) {
+            return {
+              id: item.id,
+              text: item.project_type
+            }
+          })
+        }
+      }
+    }
+  })
+}
+
+
+// 以下為範例
 // const data = [
 //   {
 //     id: 1,
