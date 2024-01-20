@@ -22,6 +22,18 @@ router.use(async (req, res, next) => {
   }
 })
 
+router.get('/api/allCategories', async (req, res, next) => {
+  try {
+    const categories = await Category.findAll({ raw: true })
+
+    if (!categories) return ''
+
+    res.json({ data: categories })
+  } catch (err) {
+    return next(err)
+  }
+})
+
 router.use('/admin', authenticatedAdmin, admin)
 
 router.get('/signup', userController.getSignUpPage)
