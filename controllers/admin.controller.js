@@ -100,7 +100,6 @@ const adminController = {
         stock,
         size,
         description,
-        category,
         image: filePath,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -124,12 +123,11 @@ const adminController = {
   getEditProduct: async (req, res, next) => {
     try {
       const product = await Product.findByPk(req.params.id, { raw: true })
+      const productcategory = await Productcategory.findOne({ where: { productId: req.params.id } })
+      const associatedCategoryId = productcategory.dataValues.categoryId
+      const category = await Category.findByPk(associatedCategoryId, { raw: true })
 
-      console.log(product)
-
-      const categories = await Category.findAll({ raw: true })
-
-      res.render('admin/edit-product', { product, categories })
+      res.render('admin/edit-product', { product, category: category.name, selectedSize: product.size, associatedCategoryId })
     } catch (err) {
       return next(err)
     }
@@ -137,29 +135,39 @@ const adminController = {
   putProduct: async (req, res, next) => {
     try {
       const { name, amount, stock, size, category, description, image } = req.body
-      if (!name || !amount || !stock || !size || !category || !description || !image) throw new Error('All fields are required')
+
+      const { file } = req
+      const filePath = file ? await localFileHandler(file) : null
+
+      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
 
       const product = await Product.findByPk(req.params.id)
       if (!product) throw new Error('Product does not exist')
 
-      const { file } = req
-      const filePath = file ? await localFileHandler(file) : null
+      const productcategory = await Productcategory.findOne({ where: { productId: req.params.id } })
 
       await product.update({
         name,
         amount,
         stock,
         size,
-        category,
         description,
         image: filePath || product.image,
-        createdAt: new Date(),
         updatedAt: new Date()
       })
+
+      await productcategory.update({
+        categoryId: category,
+        updatedAt: new Date()
+      })
+
+      console.log('this is product!!', product)
+      console.log('this is productcategory!!', productcategory)
 
       req.flash('success_messages', 'Product updated successfully!')
       res.redirect('/admin/products')
     } catch (err) {
+      console.log(err)
       return next(err)
     }
   },
@@ -169,7 +177,10 @@ const adminController = {
 
       if (!product) throw new Error('Product does not exist')
 
+      const productcategory = await Productcategory.findOne({ where: { productId: req.params.id } })
+
       await product.destroy()
+      await productcategory.destroy()
 
       res.redirect('/admin/products')
     } catch (err) {

@@ -20,9 +20,9 @@
   <label class="form-label" for="size">Size</label>
   <select class="form-control" id="size" name="size" required>
     <option value="Size" disabled selected>Size</option>
-    <option value="L">L</option>
-    <option value="M">M</option>
-    <option value="S">S</option>
+    <option value="L" {{#ifCond selectedSize 'L' }} selected {{/ifCond}}>L</option>
+    <option value="M" {{#ifCond selectedSize 'M' }} selected {{/ifCond}}>M</option>
+    <option value="S" {{#ifCond selectedSize 'S' }} selected {{/ifCond}}>S</option>
   </select>
 </div>
 
@@ -39,6 +39,7 @@
 
 <div class="project-type">
   <label class="form-label d-flex" for="project_type">Category</label>
+  <small class="form-text text-muted">{{category}}</small> <br> <br>
   <select id='project_type' name="category" multiple="multiple">
     <option value=""></option>
   </select>
@@ -58,9 +59,11 @@
 </div>
 
 <div class="form-row mb-3">
-  <label class="form-label" for="image">Image</label>
-  <input class="form-control" type="file" class="form-control-file" id="image" name="image">
+  <label class="form-label" for="image">Image</label> <br>
+  <small class="form-text text-muted">{{product.image}}</small> <br> <br>
+  <input class="form-control" type="file" class="form-control-file" id="image" name="image" value="{{product.image}}">
 </div>
+
 <button type="submit" class="btn">Submit</button>
 
 <a class="btn btn-outline-secondary" href="javascript:history.back()">Back</a>
