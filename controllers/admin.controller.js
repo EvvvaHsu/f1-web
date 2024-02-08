@@ -1,4 +1,4 @@
-const { Category, Product } = require('../models')
+const { Category, Product, Productcategory } = require('../models')
 
 const { localFileHandler } = require('../helpers/file-helpers')
 
@@ -83,8 +83,7 @@ const adminController = {
   },
   postProduct: async (req, res, next) => {
     try {
-      const { name, amount, stock, size, description } = req.body
-      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
+      const { name, amount, stock, size, category, description, image } = req.body
 
       const { file } = req
       let filePath = ''
@@ -93,19 +92,29 @@ const adminController = {
         filePath = await localFileHandler(file)
       }
 
+      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
+
       const newProduct = await Product.create({
         name,
         amount,
         stock,
         size,
         description,
+        category,
         image: filePath,
         createdAt: new Date(),
         updatedAt: new Date()
       })
 
+      const newProductCategory = await Productcategory.create({
+        productId: newProduct.id,
+        categoryId: category,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
       req.flash('success_messages', 'Product created successfully!')
-      req.session.createdData = { product: newProduct }
+      req.session.createdData = { newProduct, newProductCategory }
 
       res.redirect('/admin/products')
     } catch (err) {
@@ -118,25 +127,6 @@ const adminController = {
 
       console.log(product)
 
-      const data = [
-        {
-          id: 1,
-          project_type: 'tv'
-        },
-        {
-          id: 2,
-          project_type: 'game'
-        },
-        {
-          id: 3,
-          project_type: 'film'
-        },
-        {
-          id: 4,
-          project_type: 'movie'
-        }
-      ]
-
       const categories = await Category.findAll({ raw: true })
 
       res.render('admin/edit-product', { product, categories })
@@ -146,8 +136,8 @@ const adminController = {
   },
   putProduct: async (req, res, next) => {
     try {
-      const { name, amount, stock, size, description } = req.body
-      if (!name || !amount || !stock || !size || !description) throw new Error('All fields are required')
+      const { name, amount, stock, size, category, description, image } = req.body
+      if (!name || !amount || !stock || !size || !category || !description || !image) throw new Error('All fields are required')
 
       const product = await Product.findByPk(req.params.id)
       if (!product) throw new Error('Product does not exist')
@@ -160,6 +150,7 @@ const adminController = {
         amount,
         stock,
         size,
+        category,
         description,
         image: filePath || product.image,
         createdAt: new Date(),

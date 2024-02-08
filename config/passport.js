@@ -87,7 +87,7 @@ passport.deserializeUser(async (id, cb) => {
     }
 
     const userJSON = user.toJSON()
-    console.log(userJSON)
+    // console.log(userJSON)
     return cb(null, userJSON)
   } catch (err) {
     return cb(err)
