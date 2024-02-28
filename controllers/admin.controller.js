@@ -144,8 +144,6 @@ const adminController = {
       const product = await Product.findByPk(req.params.id)
       if (!product) throw new Error('Product does not exist')
 
-      const productcategory = await Productcategory.findOne({ where: { productId: req.params.id } })
-
       await product.update({
         name,
         amount,
@@ -156,13 +154,14 @@ const adminController = {
         updatedAt: new Date()
       })
 
-      await productcategory.update({
+      await Productcategory.update({
         categoryId: category,
         updatedAt: new Date()
+      }, {
+        where: {
+          productId: req.params.id
+        }
       })
-
-      console.log('this is product!!', product)
-      console.log('this is productcategory!!', productcategory)
 
       req.flash('success_messages', 'Product updated successfully!')
       res.redirect('/admin/products')
