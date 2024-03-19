@@ -5,7 +5,7 @@ $('#project_type').select2({ width: '100%', placeholder: 'Select an Option', all
 selType()
 
 function selType () {
-  alert('hey in frontend-helpers.js')
+  // alert('hey in frontend-helpers.js')
 
   $('#project_type').select2({
     width: '100%',
@@ -29,3 +29,11 @@ function selType () {
     }
   })
 }
+
+// more button
+document.querySelectorAll('.more-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const id = button.dataset.product
+    window.location.href = `/cateprod/${id}`
+  })
+})

@@ -88,8 +88,9 @@
 
         <div class="showproducts-card-body">
           <h5 class="showproducts-card-title">{{this.name}}</h5>
-          <a class="btn showproducts-card-btn" href="">more</a>
-        </div>
+          <p class="showproducts-card-text my-3">US$ {{this.amount}}</p>
+          
+          <a class="btn showproducts-card-btn more-btn" data-product="product" href="/cateprod/{{ this.id }}">more</a>
       </li>
       {{/each}}
 
