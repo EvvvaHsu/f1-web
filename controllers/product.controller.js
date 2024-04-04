@@ -68,8 +68,10 @@ const productController = {
         req.session.cart.push({
           product: seletedproducts,
           qty: 1,
-          price: seletedproducts.price,
+          amount: seletedproducts.amount,
           name: seletedproducts.name,
+          size: seletedproducts.size,
+          quantity: seletedproducts.quantity,
           image: seletedproducts.image,
           description: seletedproducts.description,
           id: seletedproducts.id
@@ -85,8 +87,10 @@ const productController = {
           cart.push({
             product: seletedproducts,
             qty: 1,
-            price: seletedproducts.price,
+            amount: seletedproducts.amount,
             name: seletedproducts.name,
+            size: seletedproducts.size,
+            quantity: seletedproducts.quantity,
             image: seletedproducts.image,
             description: seletedproducts.description,
             id: seletedproducts.id

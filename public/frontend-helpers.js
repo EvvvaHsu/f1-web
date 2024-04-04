@@ -38,19 +38,20 @@ document.querySelectorAll('.more-btn').forEach(button => {
   })
 })
 
-// // add to cart
-// document.addEventListener('DOMContentLoaded', function () {
-//   document.querySelectorAll('.add-to-cart').forEach(button => {
-//     button.addEventListener('click', async () => {
-//       try {
-//         const id = button.dataset.productId
-//         localStorage.setItem('cart', id)
-//         window.location.href = `/addToCart/${id}`
+// update total amount in the cart
+function updateTotalAmount () {
+  const amounts = document.querySelectorAll('.product-amount')
+  let totalAmount = 0
+  amounts.forEach(amount => {
+    totalAmount += parseFloat(amount.textContent.replace('USD$ ', ''))
+  })
 
-//         console.log('Product added to cart successfully')
-//       } catch (err) {
-//         console.err('Error adding item to cart:', err.message)
-//       }
-//     })
-//   })
-// })
+  document.getElementById('totalAmountInCart').textContent = `Total Price: USD$ ${totalAmount}`
+}
+
+window.addEventListener('DOMContentLoaded', updateTotalAmount)
+
+const selects = document.querySelectorAll('.form-select')
+selects.forEach(select => {
+  select.addEventListener('change', updateTotalAmount)
+})

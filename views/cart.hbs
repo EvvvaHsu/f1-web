@@ -7,70 +7,43 @@
     {{#each cartItems}}
     <div class="d-flex">
       <a href=""><img class="img-fluid my-3" width="330px" height="300px"
-          src="http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRODAepevJESvKmoYWQ8YAJJQO0j_a_ZgVaTFAobP3lXgETKX-kTOowNQH9_zxyUGC-aLS53LuzzNt0qys8gO4"
+          src="{{this.image}}"
           alt=""></a>
       <div>
         <div class="d-flex justify-content-between p-3 gap-5">
           <p>Product name: {{this.name}}</p>
-          <p>USD$ {{this.price}}</p>
         </div>
-        <div class="p-3 d-flex justify-content-between gap-4">
-          <select class="form-select form-select-sm" aria-label="product size">
-            <option selected>Size</option>
-            <option value="XL">XL</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="S">S</option>
-          </select>
+        <div class="d-flex justify-content-between p-3 gap-5">
+          <p class="product-amount">USD$ {{this.amount}}</p>
+        </div>
+        <div class="d-flex justify-content-between p-3 gap-5">
+          <p>Size: {{this.size}}</p>
+        </div>
+        <div class="d-flex justify-content-between p-3 gap-5">
+          <p>Quantity: {{this.quantity}}</p>
+        </div>
+        {{!-- <div class="p-3 d-flex justify-content-between gap-4">
           <select class="form-select form-select-sm" aria-label="product quantity">
             <option selected>Quantity</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
           </select>
-        </div>
+        </div> --}}
 
       </div>
     </div>
-    {{!-- <div class="d-flex">
-      <a href=""><img class="img-fluid my-3" width="330px" height="300px"
-          src="http://t0.gstatic.com/licensed-image?q=tbn:ANd9GcRODAepevJESvKmoYWQ8YAJJQO0j_a_ZgVaTFAobP3lXgETKX-kTOowNQH9_zxyUGC-aLS53LuzzNt0qys8gO4"
-          alt=""></a>
-      <div>
-        <div class="d-flex justify-content-between p-3 gap-5">
-          <p>Product name: xxx</p>
-          <p>USD$ 100</p>
-        </div>
-        <div class="p-3 d-flex justify-content-between gap-4">
-          <select class="form-select form-select-sm" aria-label="product size">
-            <option selected>Size</option>
-            <option value="XL">XL</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="S">S</option>
-          </select>
-          <select class="form-select form-select-sm" aria-label="product quantity">
-            <option selected>Quantity</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div>
-
-      </div> 
-    </div> --}}
 
   </div>
-
+    {{/each}}
   <div class="col-4 p-5" style="background-color: rgb(89, 96, 94);">
     <div class="d-flex justify-content-between mb-5 cart">
-      <p>Total Price: </p>
-      <p>USD$ 100</p>
+      <p id="totalAmountInCart"></p>
     </div>
     <a href="" class="btn btn-light w-100">Checkout</a>
   </div>
-  {{/each}}
-  {{else}}
+
+    {{else}}
   <div class="cart-empty">
     <h2>Your shopping cart is empty</h2>
     <a href="/" class="btn btn-light mt-5">Continue shopping</a>
