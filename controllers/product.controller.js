@@ -48,8 +48,55 @@ const productController = {
     try {
       const seletedproducts = await Product.findByPk(req.params.id)
       const plainProduct = seletedproducts.get({ plain: true })
+      console.log(seletedproducts)
 
       await res.render('productdetails', { seletedproducts: plainProduct })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getAddToCart: async (req, res, next) => {
+    try {
+      const productId = req.query.id
+      const seletedproducts = await Product.findByPk(productId)
+      console.log('product!!!!!!!!!!!!!!!!', seletedproducts)
+
+      // const cart = req.session.cart
+
+      if (typeof req.session.cart === 'undefined' || req.session.cart == null) {
+        req.session.cart = []
+        req.session.cart.push({
+          product: seletedproducts,
+          qty: 1,
+          price: seletedproducts.price,
+          name: seletedproducts.name,
+          image: seletedproducts.image,
+          description: seletedproducts.description,
+          id: seletedproducts.id
+        })
+      } else {
+        const cart = req.session.cart
+        const cartItem = cart.find(item => item.id === productId)
+        console.log('cartItem@@@@@@@@@@@@@@@@', cartItem)
+        if (cartItem) {
+          cart.qty++
+          console.log('qty@@@@@@@@@@@@@@@@', cartItem.qty)
+        } else {
+          cart.push({
+            product: seletedproducts,
+            qty: 1,
+            price: seletedproducts.price,
+            name: seletedproducts.name,
+            image: seletedproducts.image,
+            description: seletedproducts.description,
+            id: seletedproducts.id
+          })
+        }
+      }
+
+
+      console.log('cart@@@@@@@@@@@@@@@@', req.session.cart)
+      res.redirect('/cart')
     } catch (err) {
       return next(err)
     }

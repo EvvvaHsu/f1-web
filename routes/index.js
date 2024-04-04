@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const passport = require('../config/passport')
 const admin = require('./modules/admin')
+const cart = require('./modules/cart')
 const userController = require('../controllers/user.controller')
 const productController = require('../controllers/product.controller')
 
@@ -34,7 +35,18 @@ router.get('/api/allCategories', async (req, res, next) => {
   }
 })
 
+router.get('*', async (req, res, next) => {
+  try {
+    // res.locals.user = req.user
+    res.locals.cart = req.session.cart
+    next()
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.use('/admin', authenticatedAdmin, admin)
+router.use('/cart', authenticated, cart)
 
 router.get('/signup', userController.getSignUpPage)
 router.post('/signup', userController.postSignUp)
@@ -53,7 +65,7 @@ router.post('/forgotpassword', userController.postForgotPassword)
 router.get('/resetpassword/:id/:token', userController.getResetPasswordPage)
 router.post('/resetpassword/:id/:token', userController.postResetPassword)
 
-router.get('/cart', authenticated, userController.getCartPage)
+// router.get('/cart', authenticated, userController.getCartPage)
 
 router.get('/cateprod/:id', authenticated, productController.getProductDetails)
 router.get('/cateprod', authenticated, productController.getCateprod)

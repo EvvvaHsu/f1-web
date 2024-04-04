@@ -166,7 +166,8 @@ const userController = {
     }
   },
   getCartPage: async (req, res) => {
-    await res.render('cart')
+    const cartItems = req.session.cart ? req.session.cart : []
+    await res.render('cart', { cartItems })
   }
 }
 

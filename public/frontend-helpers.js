@@ -37,3 +37,20 @@ document.querySelectorAll('.more-btn').forEach(button => {
     window.location.href = `/cateprod/${id}`
   })
 })
+
+// // add to cart
+// document.addEventListener('DOMContentLoaded', function () {
+//   document.querySelectorAll('.add-to-cart').forEach(button => {
+//     button.addEventListener('click', async () => {
+//       try {
+//         const id = button.dataset.productId
+//         localStorage.setItem('cart', id)
+//         window.location.href = `/addToCart/${id}`
+
+//         console.log('Product added to cart successfully')
+//       } catch (err) {
+//         console.err('Error adding item to cart:', err.message)
+//       }
+//     })
+//   })
+// })
