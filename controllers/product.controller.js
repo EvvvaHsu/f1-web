@@ -1,6 +1,8 @@
 const { Product, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
+const cartItems = []
+
 const productController = {
   getHomePage: async (req, res, next) => {
     try {
@@ -55,51 +57,30 @@ const productController = {
       return next(err)
     }
   },
-  getAddToCart: async (req, res, next) => {
+  getCartPage: async (req, res) => {
+    const cartItems = req.session.cart ? req.session.cart : []
+    await res.render('cart', { cartItems })
+  },
+  postAddToCart: async (req, res, next) => {
     try {
-      const productId = req.query.id
-      const seletedproducts = await Product.findByPk(productId)
-      console.log('product!!!!!!!!!!!!!!!!', seletedproducts)
+      const { id } = req.body
+      const seletedproducts = await Product.findByPk(id)
 
-      // const cart = req.session.cart
+      req.session.cart = req.session.cart || []
+      req.session.cart.push({
+        product: seletedproducts,
+        qty: 1,
+        amount: seletedproducts.amount,
+        name: seletedproducts.name,
+        size: seletedproducts.size,
+        quantity: seletedproducts.quantity,
+        image: seletedproducts.image,
+        description: seletedproducts.description,
+        id: seletedproducts.id
+      })
 
-      if (typeof req.session.cart === 'undefined' || req.session.cart == null) {
-        req.session.cart = []
-        req.session.cart.push({
-          product: seletedproducts,
-          qty: 1,
-          amount: seletedproducts.amount,
-          name: seletedproducts.name,
-          size: seletedproducts.size,
-          quantity: seletedproducts.quantity,
-          image: seletedproducts.image,
-          description: seletedproducts.description,
-          id: seletedproducts.id
-        })
-      } else {
-        const cart = req.session.cart
-        const cartItem = cart.find(item => item.id === productId)
-        console.log('cartItem@@@@@@@@@@@@@@@@', cartItem)
-        if (cartItem) {
-          cart.qty++
-          console.log('qty@@@@@@@@@@@@@@@@', cartItem.qty)
-        } else {
-          cart.push({
-            product: seletedproducts,
-            qty: 1,
-            amount: seletedproducts.amount,
-            name: seletedproducts.name,
-            size: seletedproducts.size,
-            quantity: seletedproducts.quantity,
-            image: seletedproducts.image,
-            description: seletedproducts.description,
-            id: seletedproducts.id
-          })
-        }
-      }
+      console.log(req.session.cart)
 
-
-      console.log('cart@@@@@@@@@@@@@@@@', req.session.cart)
       res.redirect('/cart')
     } catch (err) {
       return next(err)

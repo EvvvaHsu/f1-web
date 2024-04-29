@@ -4,8 +4,8 @@ const router = express.Router()
 const userController = require('../../controllers/user.controller')
 const productController = require('../../controllers/product.controller')
 
-router.get('/', userController.getCartPage)
+router.get('/', productController.getCartPage)
 
-router.get('/add/:id', productController.getAddToCart)
+router.post('/add/:id', productController.postAddToCart)
 
 module.exports = router

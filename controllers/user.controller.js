@@ -164,10 +164,6 @@ const userController = {
     } catch (err) {
       return next(err)
     }
-  },
-  getCartPage: async (req, res) => {
-    const cartItems = req.session.cart ? req.session.cart : []
-    await res.render('cart', { cartItems })
   }
 }
 
