@@ -6,9 +6,7 @@
 
     {{#each cartItems}}
     <div class="d-flex">
-      <a href=""><img class="img-fluid my-3" width="330px" height="300px"
-          src="{{this.image}}"
-          alt=""></a>
+      <a href=""><img class="img-fluid my-3" width="330px" height="300px" src="{{this.image}}" alt=""></a>
       <div>
         <div class="d-flex justify-content-between p-3 gap-5">
           <p>Product name: {{this.name}}</p>
@@ -20,7 +18,7 @@
           <p>Size: {{this.size}}</p>
         </div>
         <div class="d-flex justify-content-between p-3 gap-5">
-          <p>Quantity: {{this.quantity}}</p>
+          <p>Quantity: {{this.qty}}</p>
         </div>
         {{!-- <div class="p-3 d-flex justify-content-between gap-4">
           <select class="form-select form-select-sm" aria-label="product quantity">
@@ -33,17 +31,17 @@
 
       </div>
     </div>
-
-  </div>
     {{/each}}
+  </div>
+
   <div class="col-4 p-5" style="background-color: rgb(89, 96, 94);">
     <div class="d-flex justify-content-between mb-5 cart">
-      <p id="totalAmountInCart"></p>
+      <p id="totalAmountInCart">Total Price: USD$ {{totalAmount}} </p>
     </div>
     <a href="" class="btn btn-light w-100">Checkout</a>
   </div>
 
-    {{else}}
+  {{else}}
   <div class="cart-empty">
     <h2>Your shopping cart is empty</h2>
     <a href="/" class="btn btn-light mt-5">Continue shopping</a>

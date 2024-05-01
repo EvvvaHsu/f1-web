@@ -39,15 +39,15 @@ document.querySelectorAll('.more-btn').forEach(button => {
 })
 
 // update total amount in the cart
-function updateTotalAmount () {
-  const amounts = document.querySelectorAll('.product-amount')
-  let totalAmount = 0
-  amounts.forEach(amount => {
-    totalAmount += parseFloat(amount.textContent.replace('USD$ ', ''))
-  })
+// function updateTotalAmount () {
+//   const amounts = document.querySelectorAll('.product-amount')
+//   let totalAmount = 0
+//   amounts.forEach(amount => {
+//     totalAmount += parseFloat(amount.textContent.replace('USD$ ', ''))
+//   })
 
-  document.getElementById('totalAmountInCart').textContent = `Total Price: USD$ ${totalAmount}`
-}
+//   document.getElementById('totalAmountInCart').textContent = `Total Price: USD$ ${totalAmount}`
+// }
 
 window.addEventListener('DOMContentLoaded', updateTotalAmount)
 

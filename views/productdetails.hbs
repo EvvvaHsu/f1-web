@@ -13,7 +13,8 @@
       <div>
         <h5 class="my-3">Quantity: 1</h5>
 
-        <form action="/cart/add/:id" class="d-flex justify-content-around align-items-center" method="get">
+        <form id="add-to-cart" action="/cart/add" class="d-flex justify-content-around align-items-center"
+          method="post">
           <input type="hidden" name="id" value="{{seletedproducts.id}}">
           <input class="product-qty" type="number" id="quantity" name="quantity" min="1" max="10" step="1" value="1">
           <button class="btn" type="submit">Add to cart</button>
@@ -33,5 +34,5 @@
 
 <div class="recommandation">
   <h2 class="my-3">You may also like</h2>
-  
+
 </div>
