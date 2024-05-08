@@ -6,17 +6,18 @@
   </div>
   <div class="col-6 ms-3">
     <h3 class="my-3">{{seletedproducts.name}}</h3>
-    <h4 class="my-3">In stock</h4>
+    <h4 class="my-3">In stock: {{seletedproducts.stock}}</h4>
     <h4 class="my-3">Price: US$ {{seletedproducts.amount}}</h4>
     <div class="product-options">
-      <h5 class="my-3">Size</h5>
+      <h5 class="my-3">Size: {{seletedproducts.size}}</h5>
       <div>
-        <h5 class="my-3">Quantity</h5>
+        <h5 class="my-3">Quantity: 1</h5>
 
-        <form action="/" class="d-flex justify-content-around align-items-center" method="post">
-          {{!-- <label for="quantity"></label> --}}
+        <form id="add-to-cart" action="/cart/add" class="d-flex justify-content-around align-items-center"
+          method="post">
+          <input type="hidden" name="id" value="{{seletedproducts.id}}">
           <input class="product-qty" type="number" id="quantity" name="quantity" min="1" max="10" step="1" value="1">
-          <input type="submit" class="btn btn-light" value="Add to Cart">
+          <button class="btn" type="submit">Add to cart</button>
         </form>
 
       </div>
@@ -33,5 +34,5 @@
 
 <div class="recommandation">
   <h2 class="my-3">You may also like</h2>
-  
+
 </div>

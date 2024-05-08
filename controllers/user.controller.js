@@ -9,11 +9,14 @@ const nodemailer = require('nodemailer')
 // const { Op } = sequelize
 
 const userController = {
-  getSignUpPage: async (req, res) => {
+  getSignUpPage: async (req, res) =>
+  {
     await res.render('signup')
   },
-  postSignUp: async (req, res, next) => {
-    try {
+  postSignUp: async (req, res, next) =>
+  {
+    try
+    {
       const { firstname, lastname, email, passhash, passwordCheck } = req.body
 
       if (passhash !== passwordCheck) throw new Error('Password does not match')
@@ -22,7 +25,8 @@ const userController = {
 
       const user = await User.findOne({ where: { email } })
 
-      if (user) {
+      if (user)
+      {
         if (user.email === email) throw new Error('Email already exists')
       }
 
@@ -38,42 +42,63 @@ const userController = {
 
       req.flash('success_messages', 'Sign up successfully!')
       res.redirect('/signin')
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  getSignInPage: async (req, res) => {
+  getSignInPage: async (req, res) =>
+  {
     await res.render('signin')
   },
-  postSignIn: async (req, res, next) => {
-    try {
+  postSignIn: async (req, res, next) =>
+  {
+    try
+    {
+      console.log('req.user', req.user)
       req.flash('success_messages', 'Sign in successfully!')
       res.redirect('/')
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  getAdminSignInPage: async (req, res) => {
+  getAdminSignInPage: async (req, res) =>
+  {
     await res.render('adminsignin')
   },
-  postAdminSignIn: async (req, res, next) => {
-    try {
+  postAdminSignIn: async (req, res, next) =>
+  {
+    try
+    {
       req.flash('success_messages', 'Admin sign in successfully!')
       res.redirect('/admin/products')
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  getLogout: async (req, res) => {
+  getLogout: async (req, res) =>
+  {
     req.flash('success_messages', 'Sign out successfully!')
     req.logout()
-    res.redirect('/signin')
+    req.session.destroy((err) =>
+    {
+      if (err)
+      {
+        return console.log(err);
+      }
+      res.redirect('/signin');
+    });
   },
-  getForgotpasswordPage: async (req, res, next) => {
+  getForgotpasswordPage: async (req, res, next) =>
+  {
     await res.render('forgotpassword')
   },
-  postForgotPassword: async (req, res, next) => {
-    try {
+  postForgotPassword: async (req, res, next) =>
+  {
+    try
+    {
       const { email } = req.body
       // res.send(email)
       const HOST = process.env.HOST
@@ -106,10 +131,13 @@ const userController = {
         text: link
       }
 
-      transporter.sendMail(mailOptions, (err, info) => {
-        if (err) {
+      transporter.sendMail(mailOptions, (err, info) =>
+      {
+        if (err)
+        {
           console.log(err)
-        } else {
+        } else
+        {
           console.log('Email sent: ' + info.response)
         }
       })
@@ -117,12 +145,15 @@ const userController = {
       console.info(link)
       req.flash('success_messages', 'link has been sent to your email !')
       res.redirect('/forgotpassword')
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  getResetPasswordPage: async (req, res, next) => {
-    try {
+  getResetPasswordPage: async (req, res, next) =>
+  {
+    try
+    {
       const { token } = req.params
       console.log(req.params)
 
@@ -136,12 +167,15 @@ const userController = {
       const secret = JWT_SECRET + user.passhash
       const payload = jwt.verify(token, secret)
       await res.render('resetpassword', { email: payload.email })
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  postResetPassword: async (req, res, next) => {
-    try {
+  postResetPassword: async (req, res, next) =>
+  {
+    try
+    {
       const { token } = req.params
       const { passhash, passhashCheck } = req.body
 
@@ -161,12 +195,21 @@ const userController = {
 
       req.flash('success_messages', 'Password has been reset!')
       res.redirect('/signin')
-    } catch (err) {
+    } catch (err)
+    {
       return next(err)
     }
   },
-  getCartPage: async (req, res) => {
-    await res.render('cart')
+  getCartPage: async (req, res) =>
+  {
+    const cartItems = req.session.cart ? req.session.cart : []
+    const totalAmounts = cartItems.map(cartItem => cartItem.qty * Number(cartItem.amount))
+
+    let totalAmount = 0
+    totalAmounts.forEach(price => totalAmount += price)
+
+    // console.log('totalAmount', totalAmount)
+    await res.render('cart', { cartItems, totalAmount })
   }
 }
 

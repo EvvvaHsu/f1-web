@@ -5,7 +5,7 @@ $('#project_type').select2({ width: '100%', placeholder: 'Select an Option', all
 selType()
 
 function selType () {
-  alert('hey in frontend-helpers.js')
+  // alert('hey in frontend-helpers.js')
 
   $('#project_type').select2({
     width: '100%',
@@ -29,3 +29,29 @@ function selType () {
     }
   })
 }
+
+// more button
+document.querySelectorAll('.more-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const id = button.dataset.product
+    window.location.href = `/cateprod/${id}`
+  })
+})
+
+// update total amount in the cart
+// function updateTotalAmount () {
+//   const amounts = document.querySelectorAll('.product-amount')
+//   let totalAmount = 0
+//   amounts.forEach(amount => {
+//     totalAmount += parseFloat(amount.textContent.replace('USD$ ', ''))
+//   })
+
+//   document.getElementById('totalAmountInCart').textContent = `Total Price: USD$ ${totalAmount}`
+// }
+
+window.addEventListener('DOMContentLoaded', updateTotalAmount)
+
+const selects = document.querySelectorAll('.form-select')
+selects.forEach(select => {
+  select.addEventListener('change', updateTotalAmount)
+})
