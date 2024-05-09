@@ -1,8 +1,6 @@
 const { Product, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
-const cartItems = []
-
 const productController = {
   getHomePage: async (req, res, next) => {
     try {
@@ -59,27 +57,43 @@ const productController = {
   },
   getCartPage: async (req, res) => {
     const cartItems = req.session.cart ? req.session.cart : []
-    await res.render('cart', { cartItems })
+    const totalAmounts = cartItems.map(item => item.qty * Number(item.amount))
+
+    let totalAmount = 0
+    totalAmounts.forEach(price => { totalAmount += price })
+
+    await res.render('cart', { cartItems, totalAmount })
   },
   postAddToCart: async (req, res, next) => {
     try {
-      const { id } = req.body
-      const seletedproducts = await Product.findByPk(id)
+      const productId = parseInt(req.body.id, 10)
+      const quantity = parseInt(req.body.quantity, 10)
+      console.log(req.body)
+      const seletedproducts = await Product.findByPk(productId)
+      console.log('produxt!!!!!!!!!!!!!', seletedproducts)
 
-      req.session.cart = req.session.cart || []
-      req.session.cart.push({
-        product: seletedproducts,
-        qty: 1,
-        amount: seletedproducts.amount,
-        name: seletedproducts.name,
-        size: seletedproducts.size,
-        quantity: seletedproducts.quantity,
-        image: seletedproducts.image,
-        description: seletedproducts.description,
-        id: seletedproducts.id
-      })
+      const cart = req.session.cart || []
+      const cartItem = cart.find(item => item.id === productId)
 
-      console.log(req.session.cart)
+      if (cartItem) {
+        cartItem.qty += quantity
+        // console.log('qty@@@@@@@@@@@@@@', cartItem.qty)
+      } else {
+        cart.push({
+          product: seletedproducts,
+          qty: quantity,
+          amount: seletedproducts.amount,
+          name: seletedproducts.name,
+          size: seletedproducts.size,
+          quantity: seletedproducts.quantity,
+          image: seletedproducts.image,
+          description: seletedproducts.description,
+          id: seletedproducts.id
+        })
+        req.session.cart = cart
+      }
+
+      console.log('cart@@@@@@@@@@@@@@', req.session.cart)
 
       res.redirect('/cart')
     } catch (err) {

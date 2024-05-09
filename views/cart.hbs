@@ -5,7 +5,7 @@
   <div class="col-7 d-flex p-3 flex-column" style="background-color: rgb(144, 221, 127);">
 
     {{#each cartItems}}
-    <div class="d-flex">
+    <div class="d-flex cart-item">
       <a href=""><img class="img-fluid my-3" width="330px" height="300px"
           src="{{this.image}}"
           alt=""></a>
@@ -20,25 +20,17 @@
           <p>Size: {{this.size}}</p>
         </div>
         <div class="d-flex justify-content-between p-3 gap-5">
-          <p>Quantity: {{this.quantity}}</p>
+          <p>Quantity: {{this.qty}}</p>
         </div>
-        {{!-- <div class="p-3 d-flex justify-content-between gap-4">
-          <select class="form-select form-select-sm" aria-label="product quantity">
-            <option selected>Quantity</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-        </div> --}}
 
       </div>
     </div>
-
-  </div>
     {{/each}}
+</div>
+
   <div class="col-4 p-5" style="background-color: rgb(89, 96, 94);">
     <div class="d-flex justify-content-between mb-5 cart">
-      <p id="totalAmountInCart"></p>
+      <p id="totalAmountInCart">Total price: USD$ {{totalAmount}}</p>
     </div>
     <a href="" class="btn btn-light w-100">Checkout</a>
   </div>

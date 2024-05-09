@@ -37,7 +37,6 @@ router.get('/api/allCategories', async (req, res, next) => {
 
 router.get('*', async (req, res, next) => {
   try {
-    // res.locals.user = req.user
     res.locals.cart = req.session.cart
     next()
   } catch (err) {
@@ -64,8 +63,6 @@ router.post('/forgotpassword', userController.postForgotPassword)
 
 router.get('/resetpassword/:id/:token', userController.getResetPasswordPage)
 router.post('/resetpassword/:id/:token', userController.postResetPassword)
-
-// router.get('/cart', authenticated, userController.getCartPage)
 
 router.get('/cateprod/:id', authenticated, productController.getProductDetails)
 router.get('/cateprod', authenticated, productController.getCateprod)

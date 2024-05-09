@@ -37,21 +37,3 @@ document.querySelectorAll('.more-btn').forEach(button => {
     window.location.href = `/cateprod/${id}`
   })
 })
-
-// update total amount in the cart
-function updateTotalAmount () {
-  const amounts = document.querySelectorAll('.product-amount')
-  let totalAmount = 0
-  amounts.forEach(amount => {
-    totalAmount += parseFloat(amount.textContent.replace('USD$ ', ''))
-  })
-
-  document.getElementById('totalAmountInCart').textContent = `Total Price: USD$ ${totalAmount}`
-}
-
-window.addEventListener('DOMContentLoaded', updateTotalAmount)
-
-const selects = document.querySelectorAll('.form-select')
-selects.forEach(select => {
-  select.addEventListener('change', updateTotalAmount)
-})

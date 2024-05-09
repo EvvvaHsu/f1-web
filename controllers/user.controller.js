@@ -3,8 +3,8 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const JWT_SECRET = process.env.JWT_SECRET
 const { User } = require('../models')
-const { authenticatedAdmin } = require('../middleware/auth')
-const { ensureAuthenticated, getUser } = require('../helpers/auth-helpers')
+// const { authenticatedAdmin } = require('../middleware/auth')
+// const { ensureAuthenticated, getUser } = require('../helpers/auth-helpers')
 const nodemailer = require('nodemailer')
 // const { Op } = sequelize
 
@@ -64,10 +64,15 @@ const userController = {
       return next(err)
     }
   },
-  getLogout: async (req, res) => {
+  getLogout: async (req, res, next) => {
     req.flash('success_messages', 'Sign out successfully!')
     req.logout()
-    res.redirect('/signin')
+    req.session.destroy(err => {
+      if (err) {
+        return console.log(err)
+      }
+      res.redirect('/signin')
+    })
   },
   getForgotpasswordPage: async (req, res, next) => {
     await res.render('forgotpassword')
