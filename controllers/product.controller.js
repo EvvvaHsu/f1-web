@@ -1,4 +1,4 @@
-const { Product, Category } = require('../models')
+const { Cartdb, Cartdetails, Product, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const productController = {
@@ -68,12 +68,60 @@ const productController = {
     try {
       const productId = parseInt(req.body.id, 10)
       const quantity = parseInt(req.body.quantity, 10)
-      console.log(req.body)
+      // console.log(req.body)
+
+      const userId = req.user.id
+      console.log('userId!!!!!!!!!!!!!', userId)
+
       const seletedproducts = await Product.findByPk(productId)
-      console.log('produxt!!!!!!!!!!!!!', seletedproducts)
+      // console.log('produxt!!!!!!!!!!!!!', seletedproducts)
 
       const cart = req.session.cart || []
       const cartItem = cart.find(item => item.id === productId)
+
+      const cartdb = await Cartdb.findOne({
+        where: {
+          id: userId
+        }
+      })
+      console.log('cartdb@@@@@@@@@@@@@@', cartdb)
+      if (!cartdb) {
+        await Cartdb.create({
+          userId,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        })
+      }
+
+      // console.log('cartdb@@@@@@@@@@@@@@', cartdb)
+
+      // const cartdetails = await Cartdetails.findOne({
+      //   where: {
+      //     userId,
+      //     cartId: cartdb.id,
+      //     createdAt: new Date(),
+      //     updatedAt: new Date()
+      //   }
+      // })
+
+      // if (cartdetails) {
+      //   await cartdetails.update({
+      //     qty: quantity
+      //   })
+      // } else {
+      //   await Cartdetails.create({
+      //     userId,
+      //     cartId: cartdb.id,
+      //     productId,
+      //     amount: seletedproducts.amount,
+      //     qty: seletedproducts.quantity,
+      //     size: seletedproducts.size,
+      //     createdAt: new Date(),
+      //     updatedAt: new Date()
+      //   })
+      // }
+
+      // console.log('cartdetails@@@@@@@@@@@@@@', cartdetails)
 
       if (cartItem) {
         cartItem.qty += quantity
@@ -93,7 +141,7 @@ const productController = {
         req.session.cart = cart
       }
 
-      console.log('cart@@@@@@@@@@@@@@', req.session.cart)
+      // console.log('cart@@@@@@@@@@@@@@', req.session.cart)
 
       res.redirect('/cart')
     } catch (err) {
