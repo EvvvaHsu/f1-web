@@ -1,4 +1,4 @@
-const { Cartdb, Cartdetails, Product, Category } = require('../models')
+const { Carts, Cartdetails, Product, Category } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
 
 const productController = {
@@ -55,14 +55,35 @@ const productController = {
       return next(err)
     }
   },
-  getCartPage: async (req, res) => {
-    const cartItems = req.session.cart ? req.session.cart : []
-    const totalAmounts = cartItems.map(item => item.qty * Number(item.amount))
+  getCartPage: async (req, res, next) => {
+    try {
+      const userId = req.user.id
 
-    let totalAmount = 0
-    totalAmounts.forEach(price => { totalAmount += price })
+      const cartDetails = await Cartdetails.findAll({
+        where: { userId },
+        include: [{ model: Product, as: 'CartdetailsProduct' }]
+      })
+      // console.log('cartDetails!!!!!!!!!!!!!', cartDetails)
 
-    await res.render('cart', { cartItems, totalAmount })
+      const cartItems = cartDetails.map(cartDetail => ({
+        id: cartDetail.productId,
+        name: cartDetail.CartdetailsProduct.name,
+        amount: cartDetail.amount,
+        qty: cartDetail.quantity,
+        image: cartDetail.CartdetailsProduct.image,
+        size: cartDetail.CartdetailsProduct.size
+      }))
+      // console.log(cartItems.length)
+
+      let totalAmount = 0
+      cartItems.forEach(item => {
+        totalAmount += item.qty * Number(item.amount)
+      })
+
+      await res.render('cart', { cartItems, totalAmount })
+    } catch (err) {
+      return next(err)
+    }
   },
   postAddToCart: async (req, res, next) => {
     try {
@@ -71,7 +92,7 @@ const productController = {
       // console.log(req.body)
 
       const userId = req.user.id
-      console.log('userId!!!!!!!!!!!!!', userId)
+      // console.log('userId!!!!!!!!!!!!!', userId)
 
       const seletedproducts = await Product.findByPk(productId)
       // console.log('produxt!!!!!!!!!!!!!', seletedproducts)
@@ -79,47 +100,40 @@ const productController = {
       const cart = req.session.cart || []
       const cartItem = cart.find(item => item.id === productId)
 
-      const cartdb = await Cartdb.findOne({
+      const [cartdb] = await Carts.findOrCreate({
         where: {
-          id: userId
+          userId
+        },
+        defaults: {
+          userId,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       })
-      console.log('cartdb@@@@@@@@@@@@@@', cartdb)
-      if (!cartdb) {
-        await Cartdb.create({
+
+      const cartId = cartdb.dataValues.id
+      const cartdetails = await Cartdetails.findOne({
+        where: {
           userId,
+          productId: productId
+        }
+      })
+
+      if (cartdetails) {
+        cartdetails.quantity += quantity
+        await cartdetails.save()
+      } else {
+        await Cartdetails.create({
+          userId,
+          cartId: cartId,
+          productId,
+          amount: seletedproducts.amount,
+          quantity,
+          size: seletedproducts.size,
           createdAt: new Date(),
           updatedAt: new Date()
         })
       }
-
-      // console.log('cartdb@@@@@@@@@@@@@@', cartdb)
-
-      // const cartdetails = await Cartdetails.findOne({
-      //   where: {
-      //     userId,
-      //     cartId: cartdb.id,
-      //     createdAt: new Date(),
-      //     updatedAt: new Date()
-      //   }
-      // })
-
-      // if (cartdetails) {
-      //   await cartdetails.update({
-      //     qty: quantity
-      //   })
-      // } else {
-      //   await Cartdetails.create({
-      //     userId,
-      //     cartId: cartdb.id,
-      //     productId,
-      //     amount: seletedproducts.amount,
-      //     qty: seletedproducts.quantity,
-      //     size: seletedproducts.size,
-      //     createdAt: new Date(),
-      //     updatedAt: new Date()
-      //   })
-      // }
 
       // console.log('cartdetails@@@@@@@@@@@@@@', cartdetails)
 
@@ -142,6 +156,7 @@ const productController = {
       }
 
       // console.log('cart@@@@@@@@@@@@@@', req.session.cart)
+      // console.log('cart!!!!!!!!!!!!!', cart)
 
       res.redirect('/cart')
     } catch (err) {
