@@ -10,7 +10,7 @@ const getCartDetails = require('../middleware/getCartDetails')
 const { authenticated, authenticatedAdmin, isLoggedIn } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
 
-const { Category, Cartdetails, Product } = require('../models')
+const { Category } = require('../models')
 
 router.use(async (req, res, next) => {
   try {
