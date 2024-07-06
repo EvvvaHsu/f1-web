@@ -5,6 +5,7 @@ const admin = require('./modules/admin')
 const cart = require('./modules/cart')
 const userController = require('../controllers/user.controller')
 const productController = require('../controllers/product.controller')
+const getCartDetails = require('../middleware/getCartDetails')
 
 const { authenticated, authenticatedAdmin, isLoggedIn } = require('../middleware/auth')
 const { generalErrorHandler } = require('../middleware/error-handler')
@@ -20,6 +21,32 @@ router.use(async (req, res, next) => {
     next()
   } catch (err) {
     next(err)
+  }
+})
+
+router.use(async (req, res, next) => {
+  try {
+    const categories = await Category.findAll()
+    res.locals.categoryTeams = categories.map(category => category.dataValues.name).slice(0, 10)
+    res.locals.categoryDrivers = categories.map(category => category.dataValues.name).slice(10, 30)
+
+    next()
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.use(getCartDetails)
+
+router.get('/api/allCategories', async (req, res, next) => {
+  try {
+    const categories = await Category.findAll({ raw: true })
+
+    if (!categories) return ''
+
+    res.json({ data: categories })
+  } catch (err) {
+    return next(err)
   }
 })
 
@@ -68,29 +95,6 @@ router.get('/cateprod/:id', authenticated, productController.getProductDetails)
 router.get('/cateprod', authenticated, productController.getCateprod)
 
 router.get('/', authenticated, productController.getHomePage)
-router.get('/', async (req, res, next) => {
-  try {
-    const userId = req.user.id
-
-    const cartDetails = await Cartdetails.findAll({
-      where: { userId },
-      include: [{ model: Product, as: 'CartdetailsProduct' }]
-    })
-    console.log('cartDetails!!!!!!!!!!!!!', cartDetails)
-
-    const cartItems = cartDetails.map(cartDetail => ({
-      id: cartDetail.productId,
-      name: cartDetail.CartdetailsProduct.name,
-      amount: cartDetail.amount,
-      qty: cartDetail.quantity,
-      image: cartDetail.CartdetailsProduct.image,
-      size: cartDetail.CartdetailsProduct.size
-    }))
-    res.render('index', { cartItems })
-  } catch (err) {
-    next(err)
-  }
-})
 
 router.use('/', generalErrorHandler)
 
