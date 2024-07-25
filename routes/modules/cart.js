@@ -6,4 +6,6 @@ router.get('/', productController.getCartPage)
 
 router.post('/add', productController.postAddToCart)
 
+router.post('/checkout', productController.postCheckout)
+
 module.exports = router

@@ -1,5 +1,6 @@
-const { Carts, Cartdetails, Product, Category } = require('../models')
+const { Carts, Cartdetails, Product, Category, Orders, Orderdetails, Payments } = require('../models')
 const { getOffset, getPagination } = require('../helpers/pagination-helper')
+const { v4: uuidv4 } = require('uuid')
 
 const productController = {
   getHomePage: async (req, res, next) => {
@@ -159,6 +160,29 @@ const productController = {
       // console.log('cart!!!!!!!!!!!!!', cart)
 
       res.redirect('/cart')
+    } catch (err) {
+      return next(err)
+    }
+  },
+  postCheckout: async (req, res, next) => {
+    try {
+      const userId = req.user.id
+      console.log('userId!!!!!!!!!!!!!', userId)
+
+      const { totalAmount } = req.body
+      const ponumber = uuidv4()
+
+      const newOrder = await Orders.create({
+        userId,
+        ponumber,
+        amount: totalAmount,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+      console.log(newOrder)
+
+      res.redirect('/homepage')
     } catch (err) {
       return next(err)
     }

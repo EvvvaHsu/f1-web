@@ -1,5 +1,6 @@
 <h1>Your items</h1>
 
+<form action="/cart/checkout" method="POST">
 {{#if cartItems}}
 <div class="row d-flex my-3 justify-content-between align-items-start">
   <div class="col-7 d-flex p-3 flex-column" style="background-color: rgb(144, 221, 127);">
@@ -32,8 +33,23 @@
     <div class="d-flex justify-content-between mb-5 cart">
       <p id="totalAmountInCart">Total price: USD$ {{totalAmount}}</p>
     </div>
-    <a href="" class="btn btn-light w-100">Checkout</a>
+
+      <div class="mb-3">
+        <label for="paymentMethod" class="form-label text-light">Payment Method:</label>
+        <div>
+          <input type="radio" id="creditCard" name="paymentMethod" value="creditCard">
+          <label for="creditCard" class="text-light">Credit Card</label>
+        </div>
+      </div>
+
+      <div>
+          <input type="hidden" name="ponumber" value="{{ponumber}}">
+          <label for="ponumber" class="text-light"></label>
+      </div>
+      
+    <a href="" class="btn btn-light w-100" type="submit">Checkout</a>
   </div>
+</form>
 
     {{else}}
   <div class="cart-empty">
