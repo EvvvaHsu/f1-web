@@ -167,11 +167,33 @@ const productController = {
   postCheckout: async (req, res, next) => {
     try {
       const userId = req.user.id
-      console.log('userId!!!!!!!!!!!!!', userId)
+      // console.log('userId!!!!!!!!!!!!!', userId)
 
-      const { totalAmount } = req.body
       const ponumber = uuidv4()
 
+      /// // get cart total amount
+      const cartDetails = await Cartdetails.findAll({
+        where: { userId },
+        include: [{ model: Product, as: 'CartdetailsProduct' }]
+      })
+      // console.log('cartDetails!!!!!!!!!!!!!', cartDetails)
+
+      const cartItems = cartDetails.map(cartDetail => ({
+        id: cartDetail.productId,
+        name: cartDetail.CartdetailsProduct.name,
+        amount: cartDetail.amount,
+        qty: cartDetail.quantity,
+        image: cartDetail.CartdetailsProduct.image,
+        size: cartDetail.CartdetailsProduct.size
+      }))
+      // console.log(cartItems.length)
+
+      let totalAmount = 0
+      cartItems.forEach(item => {
+        totalAmount += item.qty * Number(item.amount)
+      })
+
+      /// //// create a new order
       const newOrder = await Orders.create({
         userId,
         ponumber,
@@ -180,10 +202,34 @@ const productController = {
         updatedAt: new Date()
       })
 
-      console.log(newOrder)
+      /// //// create order details
+      cartItems.forEach(async item => {
+        await Orderdetails.create({
+          userId,
+          orderId: newOrder.id,
+          productId: item.id,
+          name: item.name,
+          amount: item.amount,
+          quantity: item.qty,
+          size: item.size,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        })
+      })
 
-      res.redirect('/homepage')
+
+      //// create payment
+      const payment = await Payments.create({
+        userId,
+        orderId: newOrder.id,
+        amount: totalAmount,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+
+      res.redirect('/')
     } catch (err) {
+      console.log(err)
       return next(err)
     }
   }
