@@ -1,0 +1,38 @@
+{{> admin-tabs route='orders'}}
+
+
+<table class="table align-middle" id="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">PO Number</th>
+      <th scope="col">Customer ID</th>
+      <th scope="col">Total Amount</th>
+      <th scope="col">Payment Status</th>
+      <th scope="col">Shipping Status</th>
+      <th scope="col">View Details</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each orders}}
+    <tr>
+      <th scope="row">{{this.ponumber}}</th>
+      <td>{{this.userId}}</td>
+      <td>{{this.amount}}</td>
+      <td></td>
+      <td></td>
+      <td>
+        <a href="/admin/orders/{{this.id}}">View Details</a>
+      </td>
+      <td>{{this.paymentstatus}}</td>
+      <td>{{this.shippingstatus}}</td>
+      {{!-- <td>
+        <form action="/admin/orders/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-delete text-decoration-none"
+            onclick="return confirm(`確定要刪除嗎？`)">Delete</button>
+        </form>
+      </td> --}}
+    </tr>
+    {{/each}}
+  </tbody>
+</table>

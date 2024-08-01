@@ -1,0 +1,58 @@
+{{> admin-tabs route='orders'}}
+
+<button class="btn btn-outline-secondary" onclick="goBack()">Go Back</button>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+<br>
+<br>
+
+<h4>Order Details</h4>
+<h4>PO Number: {{seletedOrder.ponumber}}</h4>
+
+<br>
+<br>
+
+
+<table class="table align-middle" id="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Order ID</th>
+      <th scope="col">Customer ID</th>
+      <th scope="col">Product ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Size</th>
+      <th scope="col">Total Amount</th>
+      <th scope="col">Payment Status</th>
+      <th scope="col">Address</th>
+      <th scope="col">Shipping Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each orderdetails}}
+    <tr>
+      <td>{{this.orderId}}</td>
+      <td>{{this.userId}}</td>
+      <td>{{this.productId}}</td>
+      <td>{{this.name}}</td>
+      <td>{{this.quantity}}</td>
+      <td>{{this.size}}</td>
+      <td>{{this.amount}}</td>
+      <td>{{this.paymentstatus}}</td>
+      <td>{{this.address}}</td>
+      <td>{{this.shippingstatus}}</td>
+      <td>
+        <form action="/admin/orders/{{this.id}}?_method=DELETE" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-delete text-decoration-none"
+            onclick="return confirm(`確定要刪除 {{ this.name }} 嗎？`)">Delete</button>
+        </form>
+      </td>
+    {{/each}}
+  </tbody>
+</table>

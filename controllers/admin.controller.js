@@ -1,4 +1,4 @@
-const { Category, Product, Productcategory } = require('../models')
+const { Category, Product, Productcategory, Orders, Orderdetails } = require('../models')
 
 const { localFileHandler } = require('../helpers/file-helpers')
 
@@ -182,6 +182,44 @@ const adminController = {
       await productcategory.destroy()
 
       res.redirect('/admin/products')
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getOrders: async (req, res, next) => {
+    try {
+      const orders = await Orders.findAll({ raw: true })
+
+      res.render('admin/orders', { orders })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  getOrderdetails: async (req, res, next) => {
+    try {
+      const seletedOrder = await Orders.findOne({ where: { id: req.params.id }, raw: true })
+
+      const orderdetails = await Orderdetails.findAll({
+        where: { orderId: req.params.id },
+        raw: true
+      })
+
+      console.log(orderdetails)
+
+      res.render('admin/orderdetails', { seletedOrder, orderdetails })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  deleteOrderdetails: async (req, res, next) => {
+    try {
+      const orderdetail = await Orderdetails.findByPk(req.params.id)
+      console.log(orderdetail)
+
+      if (!orderdetail) throw new Error('Order does not exist')
+      await orderdetail.destroy()
+
+      res.redirect('/admin/orders')
     } catch (err) {
       return next(err)
     }

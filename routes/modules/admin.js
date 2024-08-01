@@ -17,6 +17,10 @@ router.delete('/categories/:id', adminController.deleteCategory)
 router.get('/categories', adminController.getCategories)
 router.post('/categories', adminController.postCategory)
 
+router.get('/orders/:id', adminController.getOrderdetails)
+router.delete('/orders/:id', adminController.deleteOrderdetails)
+router.get('/orders', adminController.getOrders)
+
 router.get('/', (req, res) => res.redirect('admin/products'))
 
 module.exports = router

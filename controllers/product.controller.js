@@ -202,6 +202,8 @@ const productController = {
         updatedAt: new Date()
       })
 
+      console.log('newOrder!!!!!!!!!!!!!', newOrder)
+
       /// //// create order details
       cartItems.forEach(async item => {
         await Orderdetails.create({
