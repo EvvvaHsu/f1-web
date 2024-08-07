@@ -219,8 +219,7 @@ const productController = {
         })
       })
 
-
-      //// create payment
+      /// / create payment
       const payment = await Payments.create({
         userId,
         orderId: newOrder.id,
@@ -229,7 +228,99 @@ const productController = {
         updatedAt: new Date()
       })
 
-      res.redirect('/')
+      res.redirect('/payment')
+    } catch (err) {
+      console.log(err)
+      return next(err)
+    }
+  },
+  getPaymentPage: async (req, res, next) => {
+    try {
+      const crypto = require('crypto')
+      // Step1: 參數
+      const MerchantID = '3002607' // 必填
+      const MerchantTradeNo = 'qweqwe123123' // 必填
+      const MerchantTradeDate = '2024/08/01 19:29:20' // 必填 格式為：yyyy/MM/dd HH:mm:ss
+      const PaymentType = 'aio' // 必填
+      const TotalAmount = '100' // 必填
+      const TradeDesc = '交易品項' // 必填
+      const ItemName = '交易名稱' // 必填
+      const ReturnURL = 'https://www.ecpay.com.tw' // 必填
+      const ChoosePayment = 'ALL' // 必填
+      const EncryptType = '1' // 必填, 使用sha256加密
+      const HashKey = 'pwFHCqoQZGmho4w6' // 3002607
+      const HashIV = 'EkRm7iFT261dpevs' // 3002607
+
+      // Step2: 結合參數和值形成字串
+      const params = {
+        HashKey,
+        MerchantID,
+        MerchantTradeNo,
+        MerchantTradeDate,
+        PaymentType,
+        TotalAmount,
+        TradeDesc,
+        ItemName,
+        ReturnURL,
+        ChoosePayment,
+        EncryptType,
+        HashIV
+      }
+
+      const queryString = Object.keys(params).map(key => `${key}=${params[key]}`).join('&')
+
+      // Step3: 用URL encode轉換
+
+      const encodeQueryString = encodeURIComponent(queryString)
+
+      // Step4: 轉換成小寫
+
+      const lowerCaseEncodeQueryString = encodeQueryString.toLowerCase()
+
+      // Step5: 用SHA-256加密雜湊
+
+      const sha256Encode = crypto.createHash('sha256').update(lowerCaseEncodeQueryString).digest('hex')
+
+      // Step6: 轉換成大寫
+
+      const CheckMacValue = sha256Encode.toUpperCase()
+
+      console.log(CheckMacValue)
+
+      res.render('payment', {
+        MerchantID,
+        MerchantTradeNo,
+        MerchantTradeDate,
+        PaymentType,
+        EncryptType,
+        TotalAmount,
+        TradeDesc,
+        ItemName,
+        ReturnURL,
+        ChoosePayment,
+        CheckMacValue
+      })
+    } catch (err) {
+      return next(err)
+    }
+  },
+  postPayment: async (req, res, next) => {
+    try {
+      const { MerchantID, MerchantTradeNo, MerchantTradeDate, PaymentType, EncryptType, TotalAmount, TradeDesc, ItemName, ReturnURL, ChoosePayment, CheckMacValue } = req.body
+
+      res.redirect('/', {
+        MerchantID,
+        MerchantTradeNo,
+        MerchantTradeDate,
+        PaymentType,
+        EncryptType,
+        TotalAmount,
+        TradeDesc,
+        ItemName,
+        ReturnURL,
+        ChoosePayment,
+        CheckMacValue
+      })
     } catch (err) {
       console.log(err)
       return next(err)

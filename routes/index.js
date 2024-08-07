@@ -94,6 +94,9 @@ router.post('/resetpassword/:id/:token', userController.postResetPassword)
 router.get('/cateprod/:id', authenticated, productController.getProductDetails)
 router.get('/cateprod', authenticated, productController.getCateprod)
 
+router.get('/payment', authenticated, productController.getPaymentPage)
+router.post('/payment', authenticated, productController.postPayment)
+
 router.get('/', authenticated, productController.getHomePage)
 
 router.use('/', generalErrorHandler)
